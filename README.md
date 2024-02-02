@@ -11,7 +11,7 @@ Don't worry about it and just use the **Time-Conflict-Solver-inator**
 
 It's an app that allows any group of people to find common free time between members, it is determined by the length of activity
 which can be split into multiple sessions or multiple activities. The app also uses direct input of unavailable time to
-help identify gaps in busy schedules. Furhtermore, it is most beneficial to larger groups and people with very busy 
+help identify gaps in busy schedules. Furthermore, it is most beneficial to larger groups and people with very busy 
 schedules.
 
 **Why make/use this app/inator instead of using something else the great Dr. Heinz Doofenshmirtz has created?**
@@ -19,12 +19,12 @@ schedules.
 Because with busy schedules it is easy to overlook small bits for free time. I myself have had this issue.
 Moreover, trying to think and plan out schedules is hard without a central/well-made timetable 
 (My calendars aren't in sync). 
-With the app, you don't have to repetitively ask teammates "Are you available at **insert inconvinient time**?" 
+With the app, you don't have to repetitively ask teammates "Are you available at **insert inconvenient time**?" 
 This means less thinking about these things means more thinking about better things!
-Which in turn maximizes time effieciency for increased inator creating!
+Which in turn maximizes time efficiency for increased inator creating!
 
 Special Details
-- Time slots will be seperated into 15 minutes for each day.
+- Time slots will be split into 15 minutes for each day.
 - Range for time slots will be limited to 7 days (prone to change).
 
 
