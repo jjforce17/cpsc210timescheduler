@@ -9,10 +9,10 @@ Don't worry about it and just use the **Time-Conflict-Solver-inator**
 
 **What is this app?**
 
-It's an app that allows any group of people to find common free time between members, it is determined by the length of activity
-which can be split into multiple sessions or multiple activities. The app also uses direct input of unavailable time to
-help identify gaps in busy schedules. Furthermore, it is most beneficial to larger groups and people with very busy 
-schedules.
+It's an app that allows any group of people to find common free time between members, it is determined by the length of 
+activity which can be split into multiple sessions or multiple activities. The app also uses direct input of unavailable
+time to help identify gaps in busy schedules. Furthermore, it is most beneficial to larger groups and people with very 
+busy schedules.
 
 **Why make/use this app/inator instead of using something else the great Dr. Heinz Doofenshmirtz has created?**
 
