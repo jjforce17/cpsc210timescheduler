@@ -9,7 +9,7 @@ public class GroupModel {
 //    private int groupId;
     private String groupDesc;
     private String startDate;
-    private ArrayList<MemberModel> memberList;
+    private ArrayList<MemberModel> memberList = new ArrayList<MemberModel>();
     private ArrayList<Integer> availableTimes = new ArrayList<Integer>();
 
     //Constructor
@@ -27,14 +27,6 @@ public class GroupModel {
     public void setGroupName(String gn) {
         this.groupName = gn;
     }
-
-//    public int getGroupNId() {
-//        return this.groupId;
-//    }
-//
-//    public void setGroupId(int gid) {
-//        this.groupId = gid;
-//    }
 
     public String getGroupDesc() {
         return this.groupDesc;
@@ -69,6 +61,7 @@ public class GroupModel {
     }
 
     //Methods
+
     //REQUIRES: No same member.getName() in each group
     //MODIFIES: this
     //EFFECTS: Add member in parameter to memberlist
@@ -99,13 +92,18 @@ public class GroupModel {
     //Returns empty list if not slots available
     public ArrayList<Integer> findCommonSched() {
         for (int i = 1; i < 8; i++) {
-            findCommonInDay(this.memberList, i);
+            findCommonInDay(i);
         }
         return this.availableTimes;
     }
 
     //Helpers
-    private void findCommonInDay(ArrayList<MemberModel> memList, int day) {
+
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: Finds common slots for the group in a single day by creating a list of time slots, filter where member
+    //is free, filters where free slots match the whole group. Adds to group available times.
+    private void findCommonInDay(int day) {
         ArrayList<ArrayList<Integer>> memFreePerDay = new ArrayList<ArrayList<Integer>>();
         for (MemberModel m : this.memberList) {
             ArrayList<Integer> freeSlots = new ArrayList<Integer>();
@@ -117,8 +115,7 @@ public class GroupModel {
             }
             memFreePerDay.add(freeSlots);
         }
-        ArrayList<Integer> filterFreeSlots;
-        filterFreeSlots = filterLists(memFreePerDay.get(0), memFreePerDay.get(1));
+        ArrayList<Integer> filterFreeSlots = filterLists(memFreePerDay.get(0), memFreePerDay.get(1));
         for (int x = 2; x < memFreePerDay.size(); x++) {
             filterFreeSlots = filterLists(filterFreeSlots, memFreePerDay.get(x));
         }
@@ -127,6 +124,9 @@ public class GroupModel {
         }
     }
 
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: Converts time from slot number to hour:minute format.
     private int[] getTTime(int t) {
         int[] retVal = {-1,-1};
         int timeRawMins = t * 15;
@@ -150,6 +150,9 @@ public class GroupModel {
         return retVal;
     }
 
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: Filteres lists for schedules that match, returns that values where slot exists in both lists.
     private ArrayList<Integer> filterLists(ArrayList<Integer> l1, ArrayList<Integer> l2) {
         ArrayList<Integer> filteredInts = new ArrayList<Integer>();
         for (int a : l1) {
@@ -162,4 +165,105 @@ public class GroupModel {
         return filteredInts;
     }
 
+    //REQUIRES: this.matchActivityLength()
+    //MODIFIES: this
+    //EFFECTS: matches the available times and the required duration of activity.
+    public ArrayList<ArrayList<Integer>> matchActivityLength(int duration) {
+        ArrayList<Integer> freeSlots = this.availableTimes;
+        if (freeSlots.isEmpty()) {
+            return new ArrayList<ArrayList<Integer>>();
+        } else {
+            int slotsRequired = (int) Math.ceil((double) duration / 15);;
+            ArrayList<Integer> convertSlots = new ArrayList<Integer>();
+            ArrayList<ArrayList<Integer>> meetupSlots = new ArrayList<ArrayList<Integer>>();
+            for (int time : freeSlots) {
+                convertSlots.add(convertToDaySlotnum(time));
+            }
+            meetupSlots = matchByLength(convertSlots, slotsRequired);
+            return meetupSlots;
+        }
+    }
+
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: Converts day:hour:minute format to day:slotnumber format.
+    private int convertToDaySlotnum(int dayHour) {
+        int day = dayHour / 10000;
+        int hour = (dayHour - (day * 10000)) / 100;
+        int min = dayHour - (day * 10000) - (hour * 100);
+        int slot = (day * 100) + (hour * 60 + min) / 15;
+        return slot;
+    }
+
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: Filters free time so that only keep slots where they match group length.
+    //Filterse slots that are consecutive and returns them as the availble meeting times.
+    private ArrayList<ArrayList<Integer>> matchByLength(ArrayList<Integer> convertSlots, int slotsRequired) {
+        ArrayList<ArrayList<Integer>> meetupSlotGroup = new ArrayList<ArrayList<Integer>>();
+        ArrayList<ArrayList<Integer>> meetupSlots = new ArrayList<ArrayList<Integer>>();
+        boolean flag = true;
+        meetupSlotGroup = groupTimeByLength(convertSlots, slotsRequired);
+        for (ArrayList<Integer> tsg : meetupSlotGroup) {
+            flag = true;
+            for (int i = 1; i < tsg.size(); i++) {
+                if (tsg.get(i) != tsg.get(i - 1) + 1) {
+                    flag = false;
+                }
+            }
+            if (flag) {
+                meetupSlots.add(tsg);
+            }
+        }
+        return meetupSlots;
+    }
+
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: Splits slots into array of slots that have length of the desired activity length.
+    private ArrayList<ArrayList<Integer>> groupTimeByLength(ArrayList<Integer> convertSlots, int slotsRequired) {
+        ArrayList<ArrayList<Integer>> timeSlotGroup = new ArrayList<ArrayList<Integer>>();
+        for (int i = 0; i < convertSlots.size(); i++) {
+            if ((i + slotsRequired - 1) < convertSlots.size()) {
+                ArrayList<Integer> timeGroup = new ArrayList<Integer>();
+                for (int x = 0; x < slotsRequired; x++) {
+                    timeGroup.add(convertSlots.get(i + x));
+                }
+                timeSlotGroup.add(timeGroup);
+            } else {
+                break;
+            }
+        }
+        return timeSlotGroup;
+    }
+
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: Prints out the available meeting times, show if group is unable to meet with given activity length.
+    public ArrayList<String> stringAvailTimes(ArrayList<ArrayList<Integer>> timeSlotList) {
+        ArrayList<String> timeStringList = new ArrayList<String>();
+        if (timeSlotList.size() == 0) {
+            timeStringList.add("Unable for group meetup, please use different week.");
+        } else {
+            for (ArrayList<Integer> timeList : timeSlotList) {
+                int[] time1 = getTTime(timeList.get(0) - (timeList.get(0) / 100 * 100));
+                int[] time2 = getTTime(timeList.get(timeList.size() - 1)
+                        - (timeList.get(timeList.size() - 1) / 100 * 100) + 1);
+                String time1m = String.valueOf(time1[1]);
+                String time2m = String.valueOf(time2[1]);
+                if (time1[1] == 0) {
+                    time1m = "00";
+                }
+                if (time2[1] == 0) {
+                    time2m = "00";
+                }
+                String timeString = "Meetup available at " + time1[0] + ":" + time1m
+                        + " until " + time2[0] + ":" + time2m
+                        + ", "  + (timeList.get(0) / 100 - 1) + " day(s) from initialized date";
+                timeStringList.add(timeString);
+            }
+        }
+
+        return timeStringList;
+    }
 }

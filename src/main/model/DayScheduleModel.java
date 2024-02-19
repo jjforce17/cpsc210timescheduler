@@ -56,9 +56,18 @@ public class DayScheduleModel {
 
     //REQUIRES:
     //MODIFIES: this
-    //EFFECTS: Set time from 7:30 to midnight as busy
+    //EFFECTS: Set time from 9:00pm to midnight as busy
     public void setNightBusy() {
-        for (int i =  78; i <= 95; i++) {
+        for (int i =  84; i <= 95; i++) {
+            this.scheduleArr[i] = true;
+        }
+    }
+
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: Set time from 9:00pm to midnight as busy
+    public void setMorningBusy() {
+        for (int i =  0; i <= 35; i++) {
             this.scheduleArr[i] = true;
         }
     }

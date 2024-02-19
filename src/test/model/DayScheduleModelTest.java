@@ -55,11 +55,22 @@ class DayScheduleModelTest {
     @Test
     void testSetNightBusy() {
         monday.setNightBusy();
-        assertFalse(monday.getTimeSlot(8,15));
-        assertTrue(monday.getTimeSlot(19,30));
+        assertFalse(monday.getTimeSlot(20,45));
+        assertTrue(monday.getTimeSlot(21,0));
         assertTrue(monday.getTimeSlot(22,15));
         assertTrue(monday.getTimeSlot(23,45));
     }
+
+    @Test
+    void testSetMorningBusy() {
+        monday.setMorningBusy();
+        assertTrue(monday.getTimeSlot(0,0));
+        assertTrue(monday.getTimeSlot(8,15));
+        assertTrue(monday.getTimeSlot(8,45));
+        assertFalse(monday.getTimeSlot(9,0));
+        assertFalse(monday.getTimeSlot(9,15));
+    }
+
     @Test
     void testSetFullDayBusy() {
         monday.setFullDayBusy();
@@ -68,6 +79,7 @@ class DayScheduleModelTest {
         assertTrue(monday.getTimeSlot(10,15));
         assertTrue(monday.getTimeSlot(23,45));
     }
+
     @Test
     void testDayEquals() {
         monday.setFullDayBusy();
