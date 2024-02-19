@@ -1,5 +1,6 @@
 package model;
 
+//Class for schedule of a day. Stores the array of schedule slots and functions to modify it.
 public class DayScheduleModel {
     private Boolean[] scheduleArr;
 

@@ -3,9 +3,10 @@ package model;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+//Class for member. Contains member name and schedule for the week.
+// Has functions to edit the schedule of inidivudal day.
 public class MemberModel {
     private String name;
-//    private int memberId;
     private ArrayList<DayScheduleModel> memberSchedule;
 
     public MemberModel(String n) {

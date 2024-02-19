@@ -3,6 +3,8 @@ package model;
 import java.lang.reflect.Array;
 import java.util.*;
 
+//Class for group. Stores group name, description, start date, available times and member list.
+//Has functions to manage group availability, filter slots based on time.
 public class GroupModel {
     // Fields
     private String groupName;
@@ -230,8 +232,6 @@ public class GroupModel {
                     timeGroup.add(convertSlots.get(i + x));
                 }
                 timeSlotGroup.add(timeGroup);
-            } else {
-                break;
             }
         }
         return timeSlotGroup;

@@ -92,6 +92,29 @@ public class GroupModelTest {
     }
 
     @Test
+    void testGetAndSet() {
+        ArrayList<MemberModel> testGetML = new ArrayList<MemberModel>();
+        testGetML.add(m1);
+        testGetML.add(m2);
+        testGetML.add(m3);
+        assertEquals("Group 1", g1.getGroupName());
+        assertEquals("Not free", g1.getGroupDesc());
+        assertEquals("Jan 1", g1.getStartDate());
+        assertEquals(new ArrayList<Integer>(), g1.getAvailableTimes());
+        assertEquals(testGetML, g1.getMemberList());
+        g1.setGroupName("");
+        g1.setGroupDesc("");
+        g1.setStartDate("");
+        g1.setAvailableTimes(new ArrayList<Integer>());
+        g1.setMemberList(new ArrayList<MemberModel>());
+        assertEquals("", g1.getGroupName());
+        assertEquals("", g1.getGroupDesc());
+        assertEquals("", g1.getStartDate());
+        assertEquals(new ArrayList<Integer>(), g1.getAvailableTimes());
+        assertEquals(new ArrayList<MemberModel>(), g1.getMemberList());
+    }
+
+    @Test
     void testAddGroupMember() {
         MemberModel bobby = new MemberModel("Bobby");
         g1.addGroupMember(bobby);
@@ -173,6 +196,7 @@ public class GroupModelTest {
         assertEquals(new ArrayList<>(), g2.matchActivityLength(120));
         assertEquals(new ArrayList<>(), g1.matchActivityLength(120));
         assertEquals(g3test, g3.matchActivityLength(105));
+        assertEquals(new ArrayList<>(), g3.matchActivityLength(9999999));
     }
 
     @Test

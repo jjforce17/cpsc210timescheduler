@@ -13,6 +13,37 @@ class DayScheduleModelTest {
     }
 
     @Test
+    void testGetAndSet () {
+        Boolean[] testget1 = new Boolean[96];
+        for (int i = 0; i < 96; i++) {
+            testget1[i] = false;
+        }
+        Boolean daySchedSame1 = true;
+        for (int i = 0; i < 96; i++) {
+            if (monday.getScheduleArr()[i] != testget1[i]) {
+                daySchedSame1 = false;
+            }
+        }
+        assertTrue(daySchedSame1);
+        Boolean[] testget2 = new Boolean[96];
+        for (int i = 0; i < 96; i++) {
+            testget2[i] = true;
+        }
+        Boolean[] testget3 = new Boolean[96];
+        for (int i = 0; i < 96; i++) {
+            testget3[i] = true;
+        }
+        monday.setScheduleArr(testget2);
+        Boolean daySchedSame2 = true;
+        for (int i = 0; i < 96; i++) {
+            if (monday.getScheduleArr()[i] != testget3[i]) {
+                daySchedSame2 = false;
+            }
+        }
+        assertTrue(daySchedSame2);
+    }
+
+    @Test
     void testDayScheduleModel() {
         for (Boolean i: monday.getScheduleArr()) {
             assertEquals(false,i);
