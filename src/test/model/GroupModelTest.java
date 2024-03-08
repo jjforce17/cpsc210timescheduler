@@ -333,6 +333,10 @@ public class GroupModelTest {
 
     @Test
     void testJsonObject() {
+        ArrayList<Integer> availTimes = new ArrayList<>();
+        availTimes.add(1);
+        availTimes.add(2);
+        g1.setAvailableTimes(availTimes);
         assertNotEquals("", g1.toJson().toString());
     }
 }

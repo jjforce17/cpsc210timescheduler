@@ -112,6 +112,15 @@ class DayScheduleModelTest {
     }
 
     @Test
+    void testSetFullDayFree() {
+        monday.setFullDayFree();
+        assertFalse(monday.getTimeSlot(0,0));
+        assertFalse(monday.getTimeSlot(7,30));
+        assertFalse(monday.getTimeSlot(10,15));
+        assertFalse(monday.getTimeSlot(23,45));
+    }
+
+    @Test
     void testDayEquals() {
         monday.setFullDayBusy();
         DayScheduleModel tuesday = new DayScheduleModel();
