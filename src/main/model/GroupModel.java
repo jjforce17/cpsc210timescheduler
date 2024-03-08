@@ -1,20 +1,30 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
+import java.awt.datatransfer.StringSelection;
 import java.lang.reflect.Array;
 import java.util.*;
 
 //Class for group. Stores group name, description, start date, available times and member list.
 //Has functions to manage group availability, filter slots based on time.
-public class GroupModel {
+public class GroupModel implements Writable {
     // Fields
     private String groupName;
-//    private int groupId;
     private String groupDesc;
     private String startDate;
     private ArrayList<MemberModel> memberList = new ArrayList<MemberModel>();
     private ArrayList<Integer> availableTimes = new ArrayList<Integer>();
+    private int actTime1 = 99999999;
+    private int actTime2 = 9999999;
+
 
     //Constructor
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: Initializes a new group with name = gn, descriptoin = gd and start date = sd
     public GroupModel(String gn, String gd, String sd) {
         this.groupName = gn;
         this.groupDesc = gd;
@@ -60,6 +70,14 @@ public class GroupModel {
 
     public void setAvailableTimes(ArrayList<Integer> at) {
         this.availableTimes = at;
+    }
+
+    public int getActTime1() {
+        return actTime1;
+    }
+
+    public void setActTime1(int i) {
+        actTime1 = i;
     }
 
     //Methods
@@ -249,21 +267,102 @@ public class GroupModel {
                 int[] time1 = getTTime(timeList.get(0) - (timeList.get(0) / 100 * 100));
                 int[] time2 = getTTime(timeList.get(timeList.size() - 1)
                         - (timeList.get(timeList.size() - 1) / 100 * 100) + 1);
-                String time1m = String.valueOf(time1[1]);
-                String time2m = String.valueOf(time2[1]);
-                if (time1[1] == 0) {
-                    time1m = "00";
-                }
-                if (time2[1] == 0) {
-                    time2m = "00";
-                }
-                String timeString = "Meetup available at " + time1[0] + ":" + time1m
-                        + " until " + time2[0] + ":" + time2m
+                String[] t1 = changeDoubleZero(time1[0], time1[1]);
+                String[] t2 = changeDoubleZero(time2[0], time2[1]);
+
+                String timeString = "Meetup available at " + t1[0] + ":" + t1[1]
+                        + " until " + t2[0] + ":" + t2[1]
                         + ", "  + (timeList.get(0) / 100 - 1) + " day(s) from initialized date";
                 timeStringList.add(timeString);
             }
         }
 
         return timeStringList;
+    }
+
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: Prints the values of the individual memebers.
+    public String printGroupMembers() {
+        String retString = "";
+        for (MemberModel m : this. memberList) {
+            String schedString = "";
+            for (int x = 0; x < 7; x++) {
+                String boolString = "Day " + (x + 1) + ":\n";
+                DayScheduleModel d = m.getMemberSchedule().get(x);
+                for (int i = 0; i < 96; i++) {
+                    int[] timeArr = getTTime(i);
+                    String[] timeStringL = changeDoubleZero(timeArr[0], timeArr[1]);
+                    String timeString = timeStringL[0] + ":" +  timeStringL[1];
+                    if (d.getTimeSlot(timeArr[0], timeArr[1])) {
+                        boolString = boolString + "Busy at " + timeString + ", ";
+                    } else {
+                        boolString = boolString + "Free at " + timeString + ", ";
+                    }
+                }
+                schedString = schedString +  boolString + "\n";
+            }
+            retString = retString + m.getName() + "\nSchedule data: \n" + schedString;
+        }
+        return retString;
+    }
+
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: Changes int parameters into a string of "00" if they are 0, or returns the string value of the ints.
+    private String[] changeDoubleZero(int h, int m) {
+        String[] x = new String[2];
+        if (h == 0) {
+            x[0] = "00";
+        } else {
+            x[0] = String.valueOf(h);
+        }
+        if (m  == 0) {
+            x[1] = "00";
+        } else {
+            x[1] = String.valueOf(m);
+        }
+        return x;
+    }
+
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: Parses a group model into a JSON Object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("groupName", groupName);
+        json.put("groupDesc", groupDesc);
+        json.put("startDate", startDate);
+        json.put("actTime1", actTime1);
+        json.put("memberList", memberListToJson());
+        json.put("avaibleTimes", availableTimesToJson());
+        return json;
+    }
+
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: Parses the list of imembers in memberList into a JSON Array
+    private JSONArray memberListToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (MemberModel m : memberList) {
+            jsonArray.put(m.toJson());
+        }
+
+        return jsonArray;
+    }
+
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: Parses the list of integers in availabelTimes into a JSON Array
+    private JSONArray availableTimesToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Integer i : availableTimes) {
+            jsonArray.put(i);
+        }
+
+        return jsonArray;
     }
 }

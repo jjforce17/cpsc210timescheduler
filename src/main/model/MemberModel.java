@@ -1,14 +1,21 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 //Class for member. Contains member name and schedule for the week.
 // Has functions to edit the schedule of inidivudal day.
-public class MemberModel {
+public class MemberModel implements Writable {
     private String name;
     private ArrayList<DayScheduleModel> memberSchedule;
 
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: Initializes a member model with a list of 7 free day schedules.
     public MemberModel(String n) {
         this.name = n;
         DayScheduleModel d1 = new DayScheduleModel();
@@ -60,5 +67,28 @@ public class MemberModel {
     public DayScheduleModel getSpecificDay(int day) {
         return this.memberSchedule.get(day - 1);
     }
-    
+
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: Parses a member model object into a JSON Object.
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("memberScheudle", schedToJson());
+        json.put("name", name);
+        return json;
+    }
+
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: parses the list of day schedule models in memb memberSchedule into a JSON Array.
+    private JSONArray schedToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (DayScheduleModel d : memberSchedule) {
+            jsonArray.put(d.toJson());
+        }
+
+        return jsonArray;
+    }
 }

@@ -1,9 +1,16 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 //Class for schedule of a day. Stores the array of schedule slots and functions to modify it.
-public class DayScheduleModel {
+public class DayScheduleModel implements Writable {
     private Boolean[] scheduleArr;
 
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: initializes a day schedule where all the slots are free.
     public DayScheduleModel() {
         //Creates blank schedule of 96 15 minute slots for 24 horus of the day,
         //false means time is free.
@@ -84,6 +91,15 @@ public class DayScheduleModel {
 
     //REQUIRES:
     //MODIFIES: this
+    //EFFECTS: sets full day as free
+    public void setFullDayFree() {
+        for (int i = 0; i < 96; i++) {
+            this.scheduleArr[i] = false;
+        }
+    }
+
+    //REQUIRES:
+    //MODIFIES: this
     //EFFECTS: Compares current dayScheudleModel has same schedule parameter.
     //Return true if same, false is not equal.
     public Boolean dayEquals(DayScheduleModel d) {
@@ -93,5 +109,28 @@ public class DayScheduleModel {
             }
         }
         return true;
+    }
+
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: parses a scheduler arr object into a JSON Object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("scheduleArr", schedBoolToJson());
+        return json;
+    }
+
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: parses the values in scheduleArr into a JSON Array
+    private JSONArray schedBoolToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Boolean b : scheduleArr) {
+            jsonArray.put(b.toString());
+        }
+
+        return jsonArray;
     }
 }

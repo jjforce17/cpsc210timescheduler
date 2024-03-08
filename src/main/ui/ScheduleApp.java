@@ -1,35 +1,31 @@
 package ui;
 
+import model.AppUser;
 import model.DayScheduleModel;
 import model.GroupModel;
 import model.MemberModel;
+import org.json.JSONObject;
 
 import javax.annotation.processing.SupportedSourceVersion;
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.util.Scanner;
 import java.util.*;
 
-import java.io.File;  // Import the File class
-import java.io.IOException;  // Import the IOException class to handle errors
-import java.io.FileWriter;   // Import the FileWriter class
+import persistence.*;
+
+import java.io.*;  // Import the FileWriter class
 
 //Acts as current console ui, subject to change in the future.
 public class ScheduleApp {
+    private static final String JSON_STORE = "./data/groupsData.json";
     Scanner inpControl = new Scanner(System.in);
     File currFile;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+    private AppUser currUser = new AppUser();
 
     //Initialize file reading and ui
-    public ScheduleApp() {
-        try {
-            currFile = new File("data/groupsData.txt");
-            if (currFile.createNewFile()) {
-                System.out.println("File created: " + currFile.getName());
-            } else {
-                System.out.println("File already exists.");
-            }
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
+    public ScheduleApp() throws  FileNotFoundException {
         menuControl();
     }
 
@@ -39,9 +35,10 @@ public class ScheduleApp {
     private int mainMenu() {
         System.out.println("Hello, welcome to the group scheduler.");
         System.out.println("Please select an option: ");
-        System.out.println("1. Create New Group");
-        System.out.println("2. Access Existing Group");
-        System.out.println("3. Exit Program");
+        System.out.println("1. Create New group (NOTE: This resets existing user file unless user file is loaded).");
+        System.out.println("2. Load user file.");
+        System.out.println("3. Edit group file.");
+        System.out.println("4. Exit Program.");
         return inputNumber();
     }
 
@@ -49,6 +46,8 @@ public class ScheduleApp {
     //MODIFIES:
     //EFFECTS: Manages main menu input selection.
     private void menuControl() {
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         int currChoice = mainMenu();
         if (1 == currChoice) {
             System.out.println("Creating new group");
@@ -57,10 +56,129 @@ public class ScheduleApp {
             System.out.println("Opening groups file");
             readOldGroups();
         } else if (currChoice == 3) {
+            if (currUser.getGroupsList().isEmpty()) {
+                System.out.println("No file selected/user groups empty. Please load file or create a group.");
+                menuControl();
+            } else {
+                groupSelector();
+            }
+        } else if (currChoice == 4) {
             System.out.println("Exiting Program");
         } else {
             System.out.println("Invalid input! Please use 1,2 or 3 as choices.");
             menuControl();
+        }
+    }
+
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: prints out list of existing group names and call group select function
+    private void groupSelector() {
+        for (int i = 0; i < currUser.getGroupsList().size(); i++) {
+            System.out.println((i + 1) + ". " + currUser.getGroupsList().get(i).getGroupName());
+        }
+        getGroupSelect();
+    }
+
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: Asks user to pick whcih group to select
+    private void getGroupSelect() {
+        int valInp = inputNumber();
+        int groupInd = valInp - 1;
+        if (valInp > currUser.getGroupsList().size() || valInp < 0) {
+            System.out.println("Inavlid value, please try again");
+            getGroupSelect();
+        } else {
+            groupEdit(currUser.getGroupsList().get(groupInd));
+        }
+    }
+
+    //REQUIRES:
+    //MODIFIES: g
+    //EFFECTS: takes in a GroupModel as a param, does the editing process to said GroupModel
+    private void groupEdit(GroupModel g) {
+        printAvailMeets(g);
+        for (MemberModel m : g.getMemberList()) {
+            memberEdit(m);
+        }
+        System.out.println("Current group details:");
+        printAvailMeets(g);
+        System.out.println("Edit group details:");
+        System.out.println("Edit group name: ");
+        inpControl.nextLine();
+        g.setGroupName(inpControl.nextLine());
+        System.out.println("Edit group desc: ");
+        g.setGroupDesc(inpControl.nextLine());
+        System.out.println("Edit start date: ");
+        g.setStartDate(inpControl.nextLine());
+        System.out.println("Edit activity details");
+        filterMatchActivityLength(g);
+        askConfEdit(g);
+    }
+
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: asks user if they want to save their edits or discard it.
+    private void askConfEdit(GroupModel g) {
+        System.out.println("1. Save group.");
+        System.out.println("2. Discard group and return to main menu.");
+        int userInp = inputNumber();
+        if (userInp == 1) {
+            try {
+                jsonWriter.open();
+                jsonWriter.write(currUser);
+                jsonWriter.close();
+                System.out.println("Saved " + g.getGroupName() + " to " + JSON_STORE);
+            } catch (FileNotFoundException e) {
+                System.out.println("Unable to write to file: " + JSON_STORE);
+            }
+            menuControl();
+        } else if (userInp == 2) {
+            System.out.println("Group discarded");
+            menuControl();
+        } else {
+            System.out.println("Invalid value, please try again.");
+            askSaveFile(g);
+        }
+    }
+
+    //REQUIRES:
+    //MODIFIES: m
+    //EFFECTS: edits member individual data
+    private void memberEdit(MemberModel m) {
+        System.out.println("Editing : " + m.getName());
+        System.out.println("1. Edit current member schedule.");
+        System.out.println("2. Continue to next member.");
+        int valInp = inputNumber();
+        if (valInp == 1) {
+            for (int i = 0; i < m.getMemberSchedule().size(); i++) {
+                editDaySched(m.getMemberSchedule().get(i), i);
+            }
+        } else if (valInp == 2) {
+            return;
+        } else {
+            System.out.println("Invalid value please choose again.");
+            memberEdit(m);
+        }
+    }
+
+    //REQUIRES:
+    //MODIFIES: d
+    //EFFECTS: edits the daily schedule of a member
+    private void editDaySched(DayScheduleModel d, int dayInd) {
+        System.out.println("Editing day: " + (dayInd + 1));
+        System.out.println("1. Edit current day schedule.");
+        System.out.println("2. Continue to next day.");
+        int valInp = inputNumber();
+        if (valInp == 1) {
+            d.setFullDayFree();
+            setDaySchedule(d, dayInd);
+        } else if (valInp == 2) {
+            return;
+        } else {
+            System.out.println("Invalid value please choose again.");
+            editDaySched(d, dayInd);
         }
     }
 
@@ -94,56 +212,80 @@ public class ScheduleApp {
         if (memberNum <= 1) {
             System.out.println("Invalid Number of members, please try again.");
             createNewGroup();
+            return;
         }
         insertGroupMembers(memberNum, currGroup);
-        currGroup.findCommonSched();
         filterMatchActivityLength(currGroup);
+        askSaveFile(currGroup);
     }
 
     //REQUIRES:
     //MODIFIES:
     //EFFECTS: Uses members available times and finds slots that can fit activity length.
     private void filterMatchActivityLength(GroupModel currGroup) {
+        currGroup.findCommonSched();
         System.out.println("How long is the activity? (in minutes)");
         int meetupLen = inputNumber();
-        int meetupLen2 = 9999999;
-        if (meetupLen > 60) {
-            meetupLen2 = meetupLen / 2;
-        }
-        ArrayList<String> possibleMeet1 = currGroup.stringAvailTimes(currGroup.matchActivityLength(meetupLen));
-        ArrayList<String> possibleMeet2 = currGroup.stringAvailTimes(currGroup.matchActivityLength(meetupLen2));
+        currGroup.setActTime1(meetupLen);
         System.out.println("Group complete, press enter to find group schedule");
         inpControl.nextLine();
         inpControl.nextLine();
-        printAvailMeets(possibleMeet1, possibleMeet2, meetupLen, meetupLen2, currGroup);
+        printAvailMeets(currGroup);
     }
 
     //REQUIRES:
     //MODIFIES:
     //EFFECTS: Prints out to the user the possible meeting times and saves group data to the storage file.
-    private void printAvailMeets(ArrayList<String> m1, ArrayList<String> m2, int t1, int t2, GroupModel currGroup) {
+    private void printAvailMeets(GroupModel currGroup) {
+        ArrayList<String> pm = currGroup.stringAvailTimes(currGroup.matchActivityLength(currGroup.getActTime1()));
         System.out.println("Group name: " + currGroup.getGroupName());
         System.out.println("Group description: " + currGroup.getGroupDesc());
         System.out.println("Scheudle starting date: " + currGroup.getStartDate());
-        if (m1.isEmpty()) {
+        System.out.println("Meetup Length: " + currGroup.getActTime1());
+        if (currGroup.getAvailableTimes().isEmpty()) {
             System.out.println("Unable to meet, please try again with a different scheudle.");
-        } else if (t2 == 9999999 || t2 == 9999999 / 2) {
-            for (String s1 : m1) {
-                System.out.println(s1);
-            }
         } else {
-            for (String s1 : m1) {
-                System.out.println(s1);
-            }
-            System.out.println("Alternative meeting method where each meeting is " + t2 + " minutes.");
-            for (String s1 : m2) {
+            for (String s1 : pm) {
                 System.out.println(s1);
             }
         }
-        saveDataToFile(currGroup, t1, t2);
-        System.out.println("Press enter to go back to main menu");
-        inpControl.nextLine();
-        menuControl();
+        askViewMember(currGroup);
+    }
+
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: Asks if user wants to save or discard data.
+    private void askSaveFile(GroupModel currGroup) {
+        System.out.println("1. Save group.");
+        System.out.println("2. Discard group and return to main menu.");
+        int userInp = inputNumber();
+        if (userInp == 1) {
+            saveDataToFile(currGroup);
+            menuControl();
+        } else if (userInp == 2) {
+            System.out.println("Group discarded");
+            menuControl();
+        } else {
+            System.out.println("Invalid value, please try again.");
+            askSaveFile(currGroup);
+        }
+    }
+
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: Asks if user wants to view member informaiton.
+    private void askViewMember(GroupModel currGroup) {
+        System.out.println("1. View individual memeber details.");
+        System.out.println("2. Continue. ");
+        int userInp = inputNumber();
+        if (userInp == 1) {
+            System.out.println(currGroup.printGroupMembers());
+        } else if (userInp == 2) {
+            return;
+        } else {
+            System.out.println("Invalid value, please try again.");
+            askViewMember(currGroup);
+        }
     }
 
     //REQUIRES:
@@ -339,62 +481,31 @@ public class ScheduleApp {
     //REQUIRES:
     //MODIFIES:
     //EFFECTS: Saves currGroup information to groupsData file.
-    private void saveDataToFile(GroupModel currGroup, int t1, int t2) {
-        String gn = currGroup.getGroupName();
-        String gd = currGroup.getGroupDesc();
-        String gsd = currGroup.getStartDate();
-        String gat = currGroup.getAvailableTimes().toString();
-        String time1 = String.valueOf(t1);
-        String time2 = String.valueOf(t2);
-        ArrayList<MemberModel> ml = currGroup.getMemberList();
-        ArrayList<String> indvmems = new ArrayList<String>();
-        for (MemberModel m : ml) {
-            String indvmem = m.getName() + "-" + expStr(m.getMemberSchedule());
-            indvmems.add("*" + indvmem);
-        }
-        String compileString = gn + "//" + gd + "//" + gsd + "//" + gat + "//" + time1 + "//" + time2 + "//"
-                + indvmems + "\n";
-        //expand
+    private void saveDataToFile(GroupModel currGroup) {
         try {
-            FileWriter myWriter = new FileWriter("data/groupsData.txt", true);
-            myWriter.write(compileString);
-            myWriter.close();
-            System.out.println("Successfully wrote to the file.");
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+            currUser.addToGroupList(currGroup);
+            jsonWriter.open();
+            jsonWriter.write(currUser);
+            jsonWriter.close();
+            System.out.println("Saved " + currGroup.getGroupName() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
         }
-    }
-
-    //REQUIRES:
-    //MODIFIES:
-    //EFFECTS: expands the day schedule model of each day of the members schedule so that it can be stored as a string.
-    private String expStr(ArrayList<DayScheduleModel> dsm) {
-        ArrayList<String> dsms = new ArrayList<String>();
-        for (DayScheduleModel d : dsm) {
-            ArrayList<String> schedConv = convBool(d.getScheduleArr());
-            String tempString = schedConv.toString();
-            dsms.add("_" + tempString);
-        }
-        return dsms.toString();
-    }
-
-    //REQUIRES:
-    //MODIFIES:
-    //EFFECTS: converts the boolean values in users schedule array into string values.
-    private ArrayList<String> convBool(Boolean[] barr) {
-        ArrayList<String> retval = new ArrayList<String>();
-        for (Boolean b : barr) {
-            String boolVal = b.toString();
-            retval.add(boolVal);
-        }
-        return retval;
     }
 
     //REQUIRES:
     //MODIFIES:
     //EFFECTS: Reads group data from groupsData and initalizes groups based on the data.
     private void readOldGroups() {
-
+        try {
+            currUser = jsonReader.read();
+            System.out.println("Loaded teams from " + JSON_STORE);
+            for (GroupModel g : currUser.getGroupsList()) {
+                printAvailMeets(g);
+            }
+            menuControl();
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 }

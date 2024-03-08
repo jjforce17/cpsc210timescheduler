@@ -30,10 +30,15 @@ Special Details
 
 ## User Stories
 - As a user, I want to be able to add a new group to my app. (Phase 1 done)
-- As a user, I want to be able to add any number of members X to my current group Y. (Phase 1 done) (Multi requirement)
+- As a user, I want to be able to add any number of members X to my current group Y. (Phase 1 done) (Multiea requirement)
 - As a user, I want to be able to select unavailable time slots of my current user/member X. (Phase 1 done)
 - As a user, I want to be able to select the duration of the group activity. (Phase 1 done)
-- As a user, I want to be able to create multiple group activities. 
-- As a user, I want to be able to list all available activity times for the group. (Phase 1 done) (List requirement)
+- As a user, I want to be able to list all available activity times for the group. (Phase 1 done)
 - As a user, I want to see if it is actually not possible for the group to meet. (Phase 1 done)
-- As a user, I want to be able to edit time slots of a member after available time slots have been shown.
+- As a user, I want to be able to list out all the members of a group. (List requirement) (Phase 1 done)
+- As a user, I want to be able to create multiple group activities. (Phase 2 done)
+- As a user, I want to be able to edit time slots of a member after available time slots have been shown. (Phase 2 done)
+- As a user, I want to be able to choose to save or discard my new group. (Phase 2 done)
+- As a user, I want to be able to view my old groups. (Phase 2 done)
+- As a user, I want to be able to save my group edits. (Phase 2 done)
+- 
