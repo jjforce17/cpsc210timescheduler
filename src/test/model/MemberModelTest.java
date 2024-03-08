@@ -57,7 +57,12 @@ public class MemberModelTest {
     }
 
     @Test
-    void testGetSpecificDay () {
+    void testGetSpecificDay() {
         assertTrue(john.getSpecificDay(1).dayEquals(new DayScheduleModel()));
+    }
+
+    @Test
+    void testToJson() {
+        assertNotEquals("",john.toJson().toString());
     }
 }

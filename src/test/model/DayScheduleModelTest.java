@@ -119,4 +119,20 @@ class DayScheduleModelTest {
         assertTrue(monday.dayEquals(tuesday));
         assertFalse(monday.dayEquals(new DayScheduleModel()));
     }
+
+    @Test
+    void testToJson() {
+        assertEquals("{\"scheduleArr\":[\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"fa" +
+                "lse\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"fals" +
+                "e\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"fals" +
+                "e\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"fal" +
+                "se\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"fa" +
+                "lse\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"fa" +
+                "lse\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"fa" +
+                "lse\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"fa" +
+                "lse\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"fa" +
+                "lse\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"fa" +
+                "lse\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\",\"false\"]}"
+                , monday.toJson().toString());
+    }
 }
