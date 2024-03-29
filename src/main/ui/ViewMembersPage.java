@@ -26,6 +26,9 @@ public class ViewMembersPage {
 
     GroupModel currGroup;
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS initlaizes the member data information page.
     public ViewMembersPage(GroupModel g) {
         currFrame.setTitle("Group Scheduler");
         currFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,6 +46,9 @@ public class ViewMembersPage {
         titleHelper();
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS generates and returns the current frame.
     public JFrame getFrame() {
         displayGroupDetails();
         generateMemeberDetails();
@@ -51,12 +57,18 @@ public class ViewMembersPage {
         return currFrame;
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS displays the current group details
     private void displayGroupDetails() {
         panelMContent.add(new JLabel("Group Name: " + currGroup.getGroupName()));
         panelMContent.add(new JLabel("Group Description: " + currGroup.getGroupDesc()));
         panelMContent.add(new JLabel("Activity Start Date: " + currGroup.getStartDate()));
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS generates the members details.
     private void generateMemeberDetails() {
         for (MemberModel m : currGroup.getMemberList()) {
             memberLabels.add(new JLabel("Member Name: " + m.getName()));
@@ -65,6 +77,9 @@ public class ViewMembersPage {
         }
     }
 
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS generates and returns the members schedule string.
     private String memberSchedString(MemberModel m) {
         String schedString = "Schedule data: <br>";
         for (int x = 0; x < 7; x++) {
@@ -85,6 +100,9 @@ public class ViewMembersPage {
         return schedString;
     }
 
+    //REQUIRES:
+    //MODIFIES:
+    // EFFECTS: returns a string array of a better formatted time for the member schedule.
     private String[] changeDoubleZero(int h, int m) {
         String[] x = new String[2];
         if (h == 0) {
@@ -100,6 +118,9 @@ public class ViewMembersPage {
         return x;
     }
 
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: generate an hour,minute int array based on a timeslots index and returns it.
     private int[] getTTime(int t) {
         int[] retVal = {-1,-1};
         int timeRawMins = t * 15;
@@ -123,12 +144,18 @@ public class ViewMembersPage {
         return retVal;
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: displays the member details.
     private void displayMemberDetails() {
         for (JLabel l : memberLabels) {
             panelMContent.add(l);
         }
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: generate and handles the return button.
     private void setReturnButton() {
         returnButton.addActionListener(new ActionListener() {
             @Override
@@ -141,6 +168,9 @@ public class ViewMembersPage {
         });
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: generate and title for the current frame.
     private void titleHelper() {
         JLabel appTitle = new JLabel("Viewing Group Members");
         appTitle.setVerticalAlignment(JLabel.TOP);
@@ -151,6 +181,9 @@ public class ViewMembersPage {
         //currFrame.setIconImage(icon.getImage);
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: manages the panels for the current frame
     private void panelHelper() {
         panelMContent.setLayout(new BoxLayout(panelMContent, BoxLayout.Y_AXIS));
 

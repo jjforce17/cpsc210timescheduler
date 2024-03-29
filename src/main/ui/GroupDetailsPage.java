@@ -36,6 +36,9 @@ public class GroupDetailsPage {
     AppUser currUser;
     GroupModel currGroup;
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: Initializes the page to display the details of a specific group after creation.
     public GroupDetailsPage(AppUser au, GroupModel cu) {
         currFrame.setTitle("Group Scheduler");
         currFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,6 +57,9 @@ public class GroupDetailsPage {
         titleHelper();
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: generates and returns the frame/window of the gorup details page.
     public JFrame getFrame() {
         generateGroupData();
         panelMContent.add(saveButton());
@@ -61,6 +67,9 @@ public class GroupDetailsPage {
         return currFrame;
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: manages the title for the page.
     private void titleHelper() {
         JLabel appTitle = new JLabel("View/Edit your group(s)");
         appTitle.setVerticalAlignment(JLabel.TOP);
@@ -71,6 +80,9 @@ public class GroupDetailsPage {
         //currFrame.setIconImage(icon.getImage);
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: generates and handles the return button to go back to the main menu.
     private void setReturnButton() {
         returnButton.addActionListener(new ActionListener() {
             @Override
@@ -83,6 +95,9 @@ public class GroupDetailsPage {
         });
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: manages the panel of the current frame.
     private void panelHelper() {
         panelMContent.setLayout(new BoxLayout(panelMContent, BoxLayout.Y_AXIS));
 
@@ -102,6 +117,9 @@ public class GroupDetailsPage {
         currFrame.add(scrPane);
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: generates the detials for each group into a label.
     private void generateGroupData() {
         panelMContent.add(new JLabel("Group Name: " + currGroup.getGroupName()));
         panelMContent.add(new JLabel("Group Description: " + currGroup.getGroupDesc()));
@@ -111,6 +129,9 @@ public class GroupDetailsPage {
         panelMContent.add(new JLabel("----------------------------"));
     }
 
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: generates the the string form of the group activity times and returns it.
     private String generateTimeString(GroupModel g) {
         g.findCommonSched();
         for (MemberModel m : g.getMemberList()) {
@@ -123,6 +144,9 @@ public class GroupDetailsPage {
         return retString;
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: generates and handels the save button to save the group.
     private JButton saveButton() {
         JButton retButton = new JButton("Save Group.");
         retButton.addActionListener(new ActionListener() {
@@ -146,6 +170,9 @@ public class GroupDetailsPage {
         return retButton;
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: a helper for the save function, internally manages the current user and its groups.
     private void managaUser() {
         if (currUser.getGroupsList().contains(currGroup)) {
             currUser.getGroupsList().remove(currGroup);
@@ -154,6 +181,9 @@ public class GroupDetailsPage {
         currUser.addToGroupList(currGroup);
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: generates the next frames such as the success menu and main page.
     private void managaNextFrame() {
         currFrame.dispose();
         JFrame successMenu = new SaveSuccessPage().getFrame();

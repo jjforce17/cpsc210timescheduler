@@ -10,6 +10,9 @@ public class SaveSuccessPage {
 
     private JLabel imgLabel = new JLabel();
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS initializes the save success page.
     public SaveSuccessPage() {
         currFrame.setTitle("Successsfully saved group.");
         currFrame.setSize(600,150);
@@ -22,6 +25,9 @@ public class SaveSuccessPage {
         currFrame.add(errLbl);
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS generates the smiley face image
     private void showImage() {
         try {
             ImageIcon temp = new ImageIcon("data/icons/smile.jpg");
@@ -40,6 +46,9 @@ public class SaveSuccessPage {
         }
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS generates and returns the current frame.
     public JFrame getFrame() {
         return currFrame;
     }

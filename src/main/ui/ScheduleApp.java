@@ -236,6 +236,7 @@ public class ScheduleApp {
     //MODIFIES:
     //EFFECTS: Prints out to the user the possible meeting times and saves group data to the storage file.
     private void printAvailMeets(GroupModel currGroup) {
+        currGroup.findCommonSched();
         ArrayList<String> pm = currGroup.stringAvailTimes(currGroup.matchActivityLength(currGroup.getActTime1()));
         System.out.println("Group name: " + currGroup.getGroupName());
         System.out.println("Group description: " + currGroup.getGroupDesc());

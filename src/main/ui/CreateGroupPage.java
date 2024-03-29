@@ -29,6 +29,9 @@ public class CreateGroupPage  {
     JTextField dateField;
     JTextField actLenField;
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: Initializes group creation page
     public CreateGroupPage(AppUser userInp) {
         this.currUser = userInp;
         //Framte setup
@@ -53,6 +56,9 @@ public class CreateGroupPage  {
         currFrame.setVisible(true);
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: returns the generated frame for group creation.
     public JFrame getFrame() {
         JButton continueToMember = continueMemberData();
         panelMContent.add(continueToMember);
@@ -61,6 +67,9 @@ public class CreateGroupPage  {
         return currFrame;
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: returns the generated frame for group editing.
     public JFrame groupDetailsEdit(GroupModel cg) {
         this.currGroup = cg;
         JButton continueEdit = continueEditMember();
@@ -74,6 +83,9 @@ public class CreateGroupPage  {
         return currFrame;
     }
 
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: create a button to continue to the member editing page.
     private JButton continueEditMember() {
         JButton retButton = new JButton("Edit member details");
         retButton.setBounds(0,145,250,30);
@@ -95,6 +107,9 @@ public class CreateGroupPage  {
         return retButton;
     }
 
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: helper for continue edit member, calls and displays the edit member page.
     private void manageNextFrame() {
         currGroup.setGroupName(groupNameField.getText());
         currGroup.setGroupDesc(groupDescField.getText());
@@ -105,6 +120,9 @@ public class CreateGroupPage  {
         memberFrame.setVisible(true);
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: generates the text input fields
     private void textInputHelper() {
         groupNameField = new JTextField();
         groupDescField = new JTextField();
@@ -123,6 +141,9 @@ public class CreateGroupPage  {
     }
 
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: generates the labels for the page
     private void labelHelper() {
         JLabel groupNameLabel = new JLabel("Group Name :");
         JLabel groupDescLabel = new JLabel("Group Description :");
@@ -138,6 +159,9 @@ public class CreateGroupPage  {
         panelMContent.add(activityLengthlabel);
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: generates the member details page, returns a button that activates when pressed.
     private JButton continueMemberData() {
         JButton retButton = new JButton("Continue to Member Details");
         retButton.setBounds(0,145,250,30);
@@ -164,6 +188,9 @@ public class CreateGroupPage  {
         return retButton;
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: manages the panel for this current frame.
     private void panelHelper() {
         panelMContent.setLayout(null);
 
@@ -183,6 +210,9 @@ public class CreateGroupPage  {
         currFrame.add(panelMContent);
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: manages the title for the app.
     private void titleHelper() {
         JLabel appTitle = new JLabel("Hello, welcome to the group scheduler");
         appTitle.setVerticalAlignment(JLabel.TOP);
@@ -193,6 +223,9 @@ public class CreateGroupPage  {
         //currFrame.setIconImage(icon.getImage);
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: generates the return button to go back to main menu.
     private void setReturnButton() {
         returnButton.addActionListener(new ActionListener() {
             @Override

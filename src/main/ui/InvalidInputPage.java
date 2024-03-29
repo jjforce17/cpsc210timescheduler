@@ -6,6 +6,9 @@ import java.awt.*;
 public class InvalidInputPage {
     private JFrame currFrame = new JFrame();
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: initalizes the invalid input error page
     public InvalidInputPage(String text) {
         currFrame.setTitle("Invalid input, " + text);
         currFrame.setSize(600,100);
@@ -17,6 +20,9 @@ public class InvalidInputPage {
         currFrame.add(errLbl);
     }
 
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: generates and returns the current frame.
     public JFrame getFrame() {
         return currFrame;
     }

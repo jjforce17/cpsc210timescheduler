@@ -36,7 +36,10 @@ public class SelectGroupsWindow {
 
     ArrayList<GroupModel> groups = new ArrayList<GroupModel>();
     ArrayList<ArrayList<JLabel>> groupsLabels = new ArrayList<ArrayList<JLabel>>();
-    
+
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS initializes the group selection window.
     public SelectGroupsWindow(AppUser currUser) {
         currFrame.setTitle("Group Scheduler");
         currFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,6 +57,9 @@ public class SelectGroupsWindow {
         titleHelper();
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS generates and returns the current frame.
     public JFrame getFrame() {
         generateGroups();
         displayGroups();
@@ -61,6 +67,9 @@ public class SelectGroupsWindow {
         return currFrame;
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS generates and handles the title for the current frame.
     private void titleHelper() {
         JLabel appTitle = new JLabel("View/Edit your group(s)");
         appTitle.setVerticalAlignment(JLabel.TOP);
@@ -71,6 +80,9 @@ public class SelectGroupsWindow {
         //currFrame.setIconImage(icon.getImage);
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS generates the handles the return button.
     private void setReturnButton() {
         returnButton.addActionListener(new ActionListener() {
             @Override
@@ -83,6 +95,9 @@ public class SelectGroupsWindow {
         });
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS manages the panels for the current frame.
     private void panelHelper() {
         panelMContent.setLayout(new BoxLayout(panelMContent, BoxLayout.Y_AXIS));
 
@@ -102,6 +117,9 @@ public class SelectGroupsWindow {
         currFrame.add(scrPane);
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS generates the group data based on current user info.
     private void generateGroups() {
         for (GroupModel g : currUser.getGroupsList()) {
             groups.add(g);
@@ -109,6 +127,9 @@ public class SelectGroupsWindow {
         }
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS generates the labels for each group.
     private void generateGroupLabel(GroupModel g) {
         ArrayList<JLabel> currGroupLabels = new ArrayList<JLabel>();
         currGroupLabels.add(new JLabel("Group Name: " + g.getGroupName()));
@@ -119,6 +140,9 @@ public class SelectGroupsWindow {
         groupsLabels.add(currGroupLabels);
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS generates the available time for meetups into a formatted string.
     private String generateTimeString(GroupModel g) {
         String retString = "";
         g.findCommonSched();
@@ -126,6 +150,9 @@ public class SelectGroupsWindow {
         return retString;
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS displays the information for each group along with their respective buttons.
     private void displayGroups() {
         if (currUser.getGroupsList().size() <= 0) {
             panelMContent.add(new JLabel("No Groups available. Please return to menu and Create/Load groups"));
@@ -135,13 +162,16 @@ public class SelectGroupsWindow {
                 panelMContent.add(lab);
             }
             panelMContent.add(generateViewMemberButton(groups.get(i)));
-            panelMContent.add(generateButtonForGroup(groups.get(i)));
+            panelMContent.add(generateEditButton(groups.get(i)));
             panelMContent.add(generateRemoveButton(groups.get(i)));
             panelMContent.add(new JLabel("----------------------------"));
         }
     }
 
-    private JButton generateButtonForGroup(GroupModel g) {
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS generates and handles the edit group button
+    private JButton generateEditButton(GroupModel g) {
         JButton retButton = new JButton("Edit this group.");
         retButton.addActionListener(new ActionListener() {
             @Override
@@ -155,6 +185,9 @@ public class SelectGroupsWindow {
         return retButton;
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS generates and handles the button to view group member details.
     private JButton generateViewMemberButton(GroupModel g) {
         JButton retButton = new JButton("View Group Member Details.");
         retButton.addActionListener(new ActionListener() {
@@ -169,6 +202,9 @@ public class SelectGroupsWindow {
         return retButton;
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS generates and handles the remove and save group button.
     private JButton generateRemoveButton(GroupModel g) {
         JButton retButton = new JButton("Remove group and save user.");
         retButton.addActionListener(new ActionListener() {
@@ -182,6 +218,9 @@ public class SelectGroupsWindow {
         return retButton;
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS handels the save function for the group removal.
     private void saveFunction(GroupModel currGroup) {
         try {
             System.out.println(currUser.getGroupsList().size() + "Size");
@@ -196,6 +235,9 @@ public class SelectGroupsWindow {
         }
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS generates the success and returns user to main menu.
     private void managaNextFrame() {
         currFrame.dispose();
         JFrame successMenu = new SaveSuccessPage().getFrame();

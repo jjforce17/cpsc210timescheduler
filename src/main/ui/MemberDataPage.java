@@ -44,6 +44,9 @@ public class MemberDataPage {
     private JTextField memberNameField;
     ArrayList<ArrayList<JButton>> buttonListList = new ArrayList<ArrayList<JButton>>();
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: initializes the member data page.
     public MemberDataPage(GroupModel g, AppUser a) {
         this.currUser = a;
         this.currGroup = g;
@@ -70,6 +73,9 @@ public class MemberDataPage {
         updateUserPanel();
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: generates and returns the current frame.
     public JFrame getFrame() {
         //member setup
         memberSetup();
@@ -80,6 +86,9 @@ public class MemberDataPage {
         return currFrame;
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: call helpers to get and load the members data from the current user info.
     private void memberSetup() {
         currMember = new MemberModel("");
         for (int i = 1; i <= 7; i++) {
@@ -87,6 +96,9 @@ public class MemberDataPage {
         }
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: helper to generate and display member info.
     private void memberDataHelper() {
         memberNameField = new JTextField(25);
         JLabel memberNameLabel = new JLabel("Member Name :");
@@ -98,6 +110,9 @@ public class MemberDataPage {
         userPanel.add(finishGroupBtn);
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: generates and handles the finish group button.
     private JButton finishGroup() {
         JButton retBtn = new JButton("Finish Group");
         retBtn.addActionListener(new ActionListener() {
@@ -116,6 +131,9 @@ public class MemberDataPage {
         return retBtn;
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: generates and handles the get next member button.
     private JButton genNextMem() {
         JButton retBtn = new JButton("Next member");
         retBtn.addActionListener(new ActionListener() {
@@ -142,6 +160,9 @@ public class MemberDataPage {
         return retBtn;
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: checks if member name is a duplicate, returns true if yes, false if not.
     private Boolean checkMemberName(ArrayList<MemberModel> memList) {
         String memberName = memberNameField.getText();
         for (MemberModel m : memList) {
@@ -152,6 +173,9 @@ public class MemberDataPage {
         return false;
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: resets the time table when changing to a new member.
     private void resetBtns() {
         if (buttonListList.isEmpty()) {
             generateButtonHelper();
@@ -165,6 +189,9 @@ public class MemberDataPage {
         }
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: generates and handles the timetable in the frame.
     private void tableHelper() {
         JLabel colNames = new JLabel("Time                   "
                 + "       Day 1       |       Day 2       |"
@@ -179,6 +206,9 @@ public class MemberDataPage {
         generateButtonHelper();
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: generates the buttons for the time table
     private void generateButtonHelper() {
         for (int i = 0; i < 96; i++) {
             ArrayList<JButton> buttonList = new ArrayList<JButton>();
@@ -204,6 +234,9 @@ public class MemberDataPage {
         }
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: helper to display the buttons in the timetable
     private void addBtnToFrame(JButton buttonD1,JButton  buttonD2, JButton buttonD3, JButton buttonD4, JButton buttonD5,
                                JButton buttonD6, JButton buttonD7, JPanel buttonRow) {
         buttonRow.add(buttonD1);
@@ -215,6 +248,9 @@ public class MemberDataPage {
         buttonRow.add(buttonD7);
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: geenrates the individual schedule button in the timetable and handles its functions.
     private JButton schedButton(int id) {
         JButton schedBut = new JButton("");
         schedBut.setPreferredSize(new Dimension(75,15));
@@ -238,11 +274,17 @@ public class MemberDataPage {
         return schedBut;
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: changes the members data based on time table information
     private void changeTimeSlot(int day, int timeSlot, boolean status) {
         int[] timeHM = getTTime(timeSlot);
         currMember.getSpecificDay(day).setTimeSlot(timeHM[0], timeHM[1], status);
     }
 
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: generate an hour,minute int array based on a timeslots index and returns it.
     private int[] getTTime(int t) {
         int[] retVal = {-1,-1};
         int timeRawMins = t * 15;
@@ -266,6 +308,9 @@ public class MemberDataPage {
         return retVal;
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: generates the time labels for the timetable
     private void generateTimeNames() {
         for (int i = 0; i < 96; i++) {
             int[] timeInt = getStringTime(i);
@@ -278,6 +323,9 @@ public class MemberDataPage {
         }
     }
 
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: generates a better formatted string for the time labels and returns the string.
     private String timeToString(int[] timeInt) {
         int h = timeInt[0];
         int m = timeInt[1];
@@ -295,6 +343,10 @@ public class MemberDataPage {
         return x[0] + ":" + x[1];
     }
 
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: generates the time ints based on the time slots index and retuns it as an int array in hour and mnute
+    // to be converted to a string later.
     private int[] getStringTime(int t) {
         int[] retVal = {-1,-1};
         int timeRawMins = t * 15;
@@ -318,6 +370,9 @@ public class MemberDataPage {
         return retVal;
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: generates and handels the title for the current frame.
     private void titleHelper() {
         JLabel appTitle = new JLabel("View/Edit your members");
         appTitle.setVerticalAlignment(JLabel.TOP);
@@ -328,6 +383,9 @@ public class MemberDataPage {
         //currFrame.setIconImage(icon.getImage);
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: manages the helpers for the current frame.
     private void panelHelper() {
         panelE.setBackground(Color.green);
         panelW.setBackground(Color.yellow);
@@ -343,6 +401,9 @@ public class MemberDataPage {
         currFrame.add(panelW, BorderLayout.WEST);
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: helper for the panel manager for the left part of the frame.
     private void leftPanelHelper() {
         panelW.setLayout(new BoxLayout(panelW, BoxLayout.Y_AXIS));
         panelWContent.setLayout(new BorderLayout());
@@ -357,6 +418,9 @@ public class MemberDataPage {
         panelW.add(panelWContentScr);
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: helper for the panel manager for the user panel.
     private void updateUserPanel() {
         System.out.println(currGroup.getMemberList().size());
         panelE.removeAll();
@@ -379,6 +443,9 @@ public class MemberDataPage {
         }
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS generates and handles the member edit button.
     private JButton editMember(MemberModel m) {
         JButton retBtn = new JButton("Edit member");
         retBtn.addActionListener(new ActionListener() {
@@ -393,6 +460,9 @@ public class MemberDataPage {
         return retBtn;
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS generates and handles the member remove button.
     private JButton removeMember(MemberModel m) {
         JButton retBtn = new JButton("Remove member");
         retBtn.addActionListener(new ActionListener() {
@@ -406,6 +476,9 @@ public class MemberDataPage {
         return retBtn;
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS generates and displays the buttons for the timetable based on existing user info.
     private void setBtns(MemberModel m) {
         for (int i = 0; i < m.getMemberSchedule().size(); i++) {
             int day = i + 1;

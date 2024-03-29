@@ -34,6 +34,9 @@ public class MainWindow {
     ImageIcon calLogoPic;
     private JLabel loadString = new JLabel("ERROR: loadString STRING NOT SET");
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: initializes the main window and displays it.
     public MainWindow() {
         //Framte setup
         currFrame.setTitle("Group Scheduler");
@@ -64,6 +67,9 @@ public class MainWindow {
         currFrame.setVisible(true);
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: generates the iamge logo for the top of the program.
     private void showImage() {
         try {
             ImageIcon temp = new ImageIcon("data/icons/callogo2.jpg");
@@ -82,10 +88,16 @@ public class MainWindow {
         }
     }
 
+    //REQUIRES:
+    //MODIFIES:
+    //EFFECTS: generates and returns the main menu.
     public JFrame getMainMenu() {
         return currFrame;
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: handles the title for the current window.
     private void titleHelper() {
         JLabel appTitle = new JLabel("Hello, welcome to the group scheduler");
         appTitle.setVerticalAlignment(JLabel.TOP);
@@ -96,6 +108,9 @@ public class MainWindow {
         //currFrame.setIconImage(icon.getImage);
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: manages the panels for the current frame
     private void panelHelper() {
         panelM.setLayout(null);
         panelN.setLayout(new FlowLayout());
@@ -116,6 +131,9 @@ public class MainWindow {
         currFrame.add(panelM, BorderLayout.CENTER);
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: generates and displays the buttons in the main menu.
     private void buttonHelper() {
         JButton loadButton = loadButtonF("Load Groups");
         JButton addButton = addButtonF("Add Group");
@@ -131,6 +149,9 @@ public class MainWindow {
         panelM.add(exitButton);
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: laods the current status for the user (saved/unsaved)
     private void loadStatusLoader() {
         loadString.setText("Group(s) have not been Loaded.");
         loadString.setBounds(321, -250, 700,700);
@@ -140,6 +161,9 @@ public class MainWindow {
         }
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: generates the loaded string for the status loader.
     private void loadStatusWorked() {
         System.out.println("Load Status True");
         loadString.setText("Group(s) have been Loaded.");
@@ -147,12 +171,18 @@ public class MainWindow {
         panelM.add(loadString);
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: generates the error string for the status loader.
     private void loadStatusError() {
         loadString.setText("Error loading group(s), please restart application.");
         loadString.setBounds(300, -250, 700,700);
         panelM.add(loadString);
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: generates and handles the load button.
     private JButton loadButtonF(String name) {
         JButton currButton = new JButton(name);
         currButton.addActionListener(new ActionListener() {
@@ -175,6 +205,9 @@ public class MainWindow {
         return currButton;
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: generates and handles the add button.
     private JButton addButtonF(String name) {
         JButton currButton = new JButton(name);
         currButton.addActionListener(new ActionListener() {
@@ -189,6 +222,9 @@ public class MainWindow {
         return currButton;
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: generates and handles the edit button.
     private JButton editButtonF(String name) {
         JButton currButton = new JButton(name);
         currButton.addActionListener(new ActionListener() {
@@ -203,6 +239,9 @@ public class MainWindow {
         return currButton;
     }
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: generates and handles the exit button.
     private JButton exitButtonF(String name) {
         JButton currButton = new JButton(name);
         currButton.addActionListener(new ActionListener() {
