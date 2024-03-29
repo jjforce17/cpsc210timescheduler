@@ -112,6 +112,7 @@ public class GroupDetailsPage {
     }
 
     private String generateTimeString(GroupModel g) {
+        g.findCommonSched();
         for (MemberModel m : g.getMemberList()) {
             System.out.println(m.getSpecificDay(1).toJson());
         }

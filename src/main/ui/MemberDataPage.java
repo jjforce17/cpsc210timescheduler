@@ -127,6 +127,7 @@ public class MemberDataPage {
                 } else {
                     currMember.setName(memberNameField.getText());
                     if (checkMemberName(currGroup.getMemberList())) {
+                        System.out.println("Dulpicate username");
                         currGroup.removeGroupMember(memberNameField.getText());
                     }
                     currGroup.addGroupMember(currMember);

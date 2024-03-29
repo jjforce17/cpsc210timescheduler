@@ -121,6 +121,7 @@ public class SelectGroupsWindow {
 
     private String generateTimeString(GroupModel g) {
         String retString = "";
+        g.findCommonSched();
         retString = g.stringAvailTimes(g.matchActivityLength(g.getActTime1())).toString();
         return retString;
     }

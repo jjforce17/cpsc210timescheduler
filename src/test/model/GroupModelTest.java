@@ -206,11 +206,11 @@ public class GroupModelTest {
         g2.findCommonSched();
         ArrayList<String> stringTest
                 = new ArrayList<String>(Arrays.asList("Meetup available at 7:45 until 8:15, "
-                + "2 day(s) from initialized date",
+                        + "2 day(s) from initialized date",
                 "Meetup available at 8:00 until 8:30, "
-                + "2 day(s) from initialized date",
+                        + "2 day(s) from initialized date",
                 "Meetup available at 8:15 until 8:45, "
-                + "2 day(s) from initialized date"));
+                        + "2 day(s) from initialized date"));
         assertEquals(stringTest , g2.stringAvailTimes(g2.matchActivityLength(30)));
         g1.findCommonSched();
         assertEquals(new ArrayList<>(Arrays.asList("Unable for group meetup, please use different week.")) ,
@@ -218,13 +218,13 @@ public class GroupModelTest {
         g3.findCommonSched();
         ArrayList<String> stringTest2
                 = new ArrayList<String>(Arrays.asList("Meetup available at 17:15 until 19:00, "
-                + "1 day(s) from initialized date",
+                        + "1 day(s) from initialized date",
                 "Meetup available at 17:30 until 19:15, "
-                + "1 day(s) from initialized date",
+                        + "1 day(s) from initialized date",
                 "Meetup available at 17:15 until 19:00, "
-                + "4 day(s) from initialized date",
+                        + "4 day(s) from initialized date",
                 "Meetup available at 17:30 until 19:15, "
-                + "4 day(s) from initialized date"));
+                        + "4 day(s) from initialized date"));
         assertEquals(stringTest2 , g3.stringAvailTimes(g3.matchActivityLength(105)));
     }
 
