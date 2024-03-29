@@ -18,7 +18,6 @@ public class GroupModel implements Writable {
     private ArrayList<MemberModel> memberList = new ArrayList<MemberModel>();
     private ArrayList<Integer> availableTimes = new ArrayList<Integer>();
     private int actTime1 = 99999999;
-    private int actTime2 = 9999999;
 
 
     //Constructor
@@ -111,6 +110,7 @@ public class GroupModel implements Writable {
     //returns list where the list of slots are available for every member.
     //Returns empty list if not slots available
     public ArrayList<Integer> findCommonSched() {
+        this.availableTimes = new ArrayList<>();
         for (int i = 1; i < 8; i++) {
             findCommonInDay(i);
         }

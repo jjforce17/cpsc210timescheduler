@@ -18,7 +18,6 @@ import java.util.Scanner;
 
 public class SelectGroupsWindow {
     private static final String JSON_STORE = "./data/groupsData.json";
-    private Scanner inpControl = new Scanner(System.in);
     private File currFile;
     private JsonWriter jsonWriter = new JsonWriter(JSON_STORE);
     private JsonReader jsonReader = new JsonReader(JSON_STORE);

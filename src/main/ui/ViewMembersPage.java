@@ -64,6 +64,7 @@ public class ViewMembersPage {
         panelMContent.add(new JLabel("Group Name: " + currGroup.getGroupName()));
         panelMContent.add(new JLabel("Group Description: " + currGroup.getGroupDesc()));
         panelMContent.add(new JLabel("Activity Start Date: " + currGroup.getStartDate()));
+        panelMContent.add(new JLabel("Activity Length : " + currGroup.getActTime1() + " minutes"));
     }
 
     //REQUIRES:

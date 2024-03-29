@@ -10,12 +10,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class MainWindow {
     private static final String JSON_STORE = "./data/groupsData.json";
-    private Scanner inpControl = new Scanner(System.in);
     private File currFile;
     private JsonWriter jsonWriter = new JsonWriter(JSON_STORE);
     private JsonReader jsonReader = new JsonReader(JSON_STORE);
@@ -38,6 +38,7 @@ public class MainWindow {
     //MODIFIES: this
     //EFFECTS: initializes the main window and displays it.
     public MainWindow() {
+
         //Framte setup
         currFrame.setTitle("Group Scheduler");
         currFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -197,12 +198,32 @@ public class MainWindow {
                     }
                     loadStatusWorked();
                 } catch (IOException err) {
+                    createFileHelper();
+                } catch (Exception ex) {
+                    System.out.println("File error");
                     loadStatusError();
-                    System.out.println("Unable to read from file: " + JSON_STORE);
                 }
             }
         });
         return currButton;
+    }
+
+    private void createFileHelper() {
+        try {
+            currFile = new File("data/groupsData.json");
+            if (currFile.createNewFile()) {
+                System.out.println("File created: " + currFile.getName());
+                jsonWriter.open();
+                jsonWriter.write(new AppUser());
+                jsonWriter.close();
+                loadStatusWorked();
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 
     //REQUIRES:

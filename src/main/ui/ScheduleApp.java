@@ -20,12 +20,26 @@ public class ScheduleApp {
     private static final String JSON_STORE = "./data/groupsData.json";
     private Scanner inpControl = new Scanner(System.in);
     private File currFile;
-    private JsonWriter jsonWriter;
-    private JsonReader jsonReader;
+    private JsonWriter jsonWriter = new JsonWriter(JSON_STORE);
+    private JsonReader jsonReader = new JsonReader(JSON_STORE);
     private AppUser currUser = new AppUser();
 
     //Initialize file reading and ui
     public ScheduleApp() throws  FileNotFoundException {
+        try {
+            currFile = new File("data/groupsData.json");
+            if (currFile.createNewFile()) {
+                System.out.println("File created: " + currFile.getName());
+                jsonWriter.open();
+                jsonWriter.write(new AppUser());
+                jsonWriter.close();
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
         menuControl();
     }
 

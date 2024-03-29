@@ -17,12 +17,9 @@ import java.util.Scanner;
 
 public class GroupDetailsPage {
     private static final String JSON_STORE = "./data/groupsData.json";
-    private Scanner inpControl = new Scanner(System.in);
     private File currFile;
     private JsonWriter jsonWriter = new JsonWriter(JSON_STORE);
     private JsonReader jsonReader = new JsonReader(JSON_STORE);
-
-
     JFrame currFrame = new JFrame();
 
     JPanel panelN = new JPanel();
@@ -131,7 +128,7 @@ public class GroupDetailsPage {
 
     //REQUIRES:
     //MODIFIES:
-    //EFFECTS: generates the the string form of the group activity times and returns it.
+    //EFFECTS: generates the string form of the group activity times and returns it.
     private String generateTimeString(GroupModel g) {
         g.findCommonSched();
         for (MemberModel m : g.getMemberList()) {
