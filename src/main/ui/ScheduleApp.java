@@ -18,8 +18,8 @@ import java.io.*;  // Import the FileWriter class
 //Acts as current console ui, subject to change in the future.
 public class ScheduleApp {
     private static final String JSON_STORE = "./data/groupsData.json";
-    Scanner inpControl = new Scanner(System.in);
-    File currFile;
+    private Scanner inpControl = new Scanner(System.in);
+    private File currFile;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private AppUser currUser = new AppUser();
@@ -223,7 +223,6 @@ public class ScheduleApp {
     //MODIFIES:
     //EFFECTS: Uses members available times and finds slots that can fit activity length.
     private void filterMatchActivityLength(GroupModel currGroup) {
-        currGroup.findCommonSched();
         System.out.println("How long is the activity? (in minutes)");
         int meetupLen = inputNumber();
         currGroup.setActTime1(meetupLen);

@@ -18,7 +18,6 @@ public class GroupModel implements Writable {
     private ArrayList<MemberModel> memberList = new ArrayList<MemberModel>();
     private ArrayList<Integer> availableTimes = new ArrayList<Integer>();
     private int actTime1 = 99999999;
-    private int actTime2 = 9999999;
 
 
     //Constructor
@@ -96,7 +95,7 @@ public class GroupModel implements Writable {
     //IF member is not found, return -1
     public int removeGroupMember(String memberName) {
         for (MemberModel curMember : this.memberList) {
-            if (curMember.getName() == memberName) {
+            if (curMember.getName().equals(memberName)) {
                 this.memberList.remove(curMember);
                 return 1;
             }
@@ -189,6 +188,7 @@ public class GroupModel implements Writable {
     //MODIFIES: this
     //EFFECTS: matches the available times and the required duration of activity.
     public ArrayList<ArrayList<Integer>> matchActivityLength(int duration) {
+        findCommonSched();
         ArrayList<Integer> freeSlots = this.availableTimes;
         if (freeSlots.isEmpty()) {
             return new ArrayList<ArrayList<Integer>>();
