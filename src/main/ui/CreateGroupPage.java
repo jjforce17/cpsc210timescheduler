@@ -88,17 +88,21 @@ public class CreateGroupPage  {
                     JFrame errFrame = new InvalidInputPage("Length of activity can only be a number.").getFrame();
                     errFrame.setVisible(true);
                 } else {
-                    currGroup.setGroupName(groupNameField.getText());
-                    currGroup.setGroupDesc(groupDescField.getText());
-                    currGroup.setStartDate(dateField.getText());
-                    currFrame.dispose();
-                    currGroup.setActTime1(Integer.parseInt(actLenField.getText()));
-                    JFrame memberFrame = new MemberDataPage(currGroup, currUser).getFrame();
-                    memberFrame.setVisible(true);
+                    manageNextFrame();
                 }
             }
         });
         return retButton;
+    }
+
+    private void manageNextFrame() {
+        currGroup.setGroupName(groupNameField.getText());
+        currGroup.setGroupDesc(groupDescField.getText());
+        currGroup.setStartDate(dateField.getText());
+        currFrame.dispose();
+        currGroup.setActTime1(Integer.parseInt(actLenField.getText()));
+        JFrame memberFrame = new MemberDataPage(currGroup, currUser).getFrame();
+        memberFrame.setVisible(true);
     }
 
     private void textInputHelper() {
