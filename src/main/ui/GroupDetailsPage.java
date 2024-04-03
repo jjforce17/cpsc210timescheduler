@@ -18,9 +18,7 @@ import java.util.Scanner;
 //Group Details page
 public class GroupDetailsPage {
     private static final String JSON_STORE = "./data/groupsData.json";
-    private File currFile;
     private JsonWriter jsonWriter = new JsonWriter(JSON_STORE);
-    private JsonReader jsonReader = new JsonReader(JSON_STORE);
     JFrame currFrame = new JFrame();
 
     JPanel panelN = new JPanel();

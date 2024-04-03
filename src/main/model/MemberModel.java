@@ -71,6 +71,8 @@ public class MemberModel implements Writable {
     public DayScheduleModel getSpecificDay(int day) {
         //EventLog.getInstance().logEvent(new Event("Getting schedule on day " + day + " for member "
         //        + this.name));
+        //This function shows what day is being received from which member, this is usally called when editing a
+        //time schedule, so we can see which user and day it's from, but would take initialization a few hundred lines.
         return this.memberSchedule.get(day - 1);
     }
 

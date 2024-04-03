@@ -90,10 +90,14 @@ backup file in the data folder should you want to have existing user data when t
 
 Sample read me where new group is added, members created, one is removed and one is edited.
 The member "mem to remove" and "mem 2 to edit later" are the parts where a member is removed and edited.
+These are the two functions relating to the X's and Y. The addition logs can also be seen. 
+Note that the update log is not available as updating is just removing and then adding the member with the new data but
+same name. Others include updating the user's time schedule (For which the member the time scheudle belongs to is not 
+included as initialization would take hudreds of lines, but code is left out commented in GroupModel).
 
 Tue Apr 02 23:29:44 PDT 2024\
 New app user initialized.\
-Tue Apr 02 23:29:45 PDT 2024
+Tue Apr 02 23:29:45 PDT 2024\
 Reading from file.\
 Tue Apr 02 23:29:45 PDT 2024\
 New app user initialized.\
@@ -299,3 +303,16 @@ Tue Apr 02 23:33:55 PDT 2024\
 New app user initialized.
 
 Process finished with exit code 0
+
+### Phase 4: Task 3
+If I had more time I would separate the MemberDataPage into a multiple different classes as this class alone handles
+all of the X to Y functions, including the display and the two specific functions required. This would make the page 
+easier to manage as I would have a lot less helper functions and could help with reusing the panel displays for that
+page.\
+I have also seen a few duplicate codes like the functions I use to print out the usernames, group details, etc. This 
+would help readability and reduce the amount of code duplication I have whenever I try to print out a list of users,
+schedules or groups.
+Other adjusments would include more referencing to the ScheduleApp instead of copying the code itself as this would help
+keep the processing of the user/group/member/day data in a centralised area instead of the ui object itself.
+
+
