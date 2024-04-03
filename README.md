@@ -85,3 +85,217 @@ backup file in the data folder should you want to have existing user data when t
   change the name and schedule of a user. (X related action, edit an X that has been added to Y.)
 - Clicking the remove member button will remove the selected member for the current group.
   (X related action, remove an X that has been added to Y)
+
+### Phase 4: Task 2
+
+Sample read me where new group is added, members created, one is removed and one is edited.
+The member "mem to remove" and "mem 2 to edit later" are the parts where a member is removed and edited.
+
+Tue Apr 02 23:29:44 PDT 2024\
+New app user initialized.\
+Tue Apr 02 23:29:45 PDT 2024
+Reading from file.\
+Tue Apr 02 23:29:45 PDT 2024\
+New app user initialized.\
+Tue Apr 02 23:29:45 PDT 2024\
+New group created test 1 rereedit\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing activity time from 99999999 to 30 for group test 1 rereedit\
+Tue Apr 02 23:29:45 PDT 2024\
+New member created Bob\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@99b7a48\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@7e183cf3\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@7881dd2f\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@33eb7136\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@61f00439\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@5eb05350\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@28ae850c\
+Tue Apr 02 23:29:45 PDT 2024\
+New member created John\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@40a433ee\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@2194360f\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@7de2cbbe\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@21b8a7eb\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@4062cb71\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@40c6a93c\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@2b1235a1\
+Tue Apr 02 23:29:45 PDT 2024\
+New group added to list.\
+Tue Apr 02 23:29:45 PDT 2024\
+New group created Group 2\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing activity time from 99999999 to 200 for group Group 2\
+Tue Apr 02 23:29:45 PDT 2024\
+New member created Bobgagain\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@4ff158d7\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@199e3b1b\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@6ce4ee5d\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@5661615d\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@1313bca6\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@7b3d1b3c\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@30e08400\
+Tue Apr 02 23:29:45 PDT 2024\
+New member created Johnagain\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@6dd660c8\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@63ae1758\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@70d914ea\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@442d5e75\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@1a23a618\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@9a476d3\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@31624d49\
+Tue Apr 02 23:29:45 PDT 2024\
+New group added to list.\
+Tue Apr 02 23:29:45 PDT 2024\
+New group created group 3\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing activity time from 99999999 to 16 for group group 3\
+Tue Apr 02 23:29:45 PDT 2024\
+New member created member 1\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@1f9273e6\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@1806156a\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@323eea57\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@1195e15c\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@1d94bdcb\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@35114656\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@70b86ef1\
+Tue Apr 02 23:29:45 PDT 2024\
+New member created member 2\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@4e19febb\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@765b6856\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@4947b33d\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@7a3b9302\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@7b5646d8\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@56e2883c\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@22481786\
+Tue Apr 02 23:29:45 PDT 2024\
+New member created member3\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@4cd234e\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@4d64d589\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@f051771\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@6d13d530\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@295c8f\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@6b8a199e\
+Tue Apr 02 23:29:45 PDT 2024\
+Changing user time slot to [Ljava.lang.Boolean;@4c932501\
+Tue Apr 02 23:29:45 PDT 2024\
+New group added to list.\
+Tue Apr 02 23:33:25 PDT 2024\
+New group created New group to add for readme\
+Tue Apr 02 23:33:25 PDT 2024\
+Changing activity time from 99999999 to 35 for group New group to add for readme\
+Tue Apr 02 23:33:26 PDT 2024\
+New member created\
+Tue Apr 02 23:33:30 PDT 2024\
+Changing user time slot for 0:0 to false\
+Tue Apr 02 23:33:31 PDT 2024\
+Changing user time slot for 0:15 to false\
+Tue Apr 02 23:33:31 PDT 2024\
+Changing user time slot for 0:30 to false\
+Tue Apr 02 23:33:32 PDT 2024\
+Changing user time slot for 0:45 to false\
+Tue Apr 02 23:33:33 PDT 2024\
+Changing member name from  to mem 1\
+Tue Apr 02 23:33:33 PDT 2024\
+New member mem 1 added to group.\
+Tue Apr 02 23:33:33 PDT 2024\
+New member created\
+Tue Apr 02 23:33:39 PDT 2024\
+Changing user time slot for 0:0 to false\
+Tue Apr 02 23:33:40 PDT 2024\
+Changing user time slot for 0:15 to false\
+Tue Apr 02 23:33:41 PDT 2024\
+Changing user time slot for 0:30 to false\
+Tue Apr 02 23:33:41 PDT 2024\
+Changing user time slot for 0:45 to false\
+Tue Apr 02 23:33:42 PDT 2024\
+Changing member name from  to mem 2 to edit later\
+Tue Apr 02 23:33:42 PDT 2024\
+New member mem 2 to edit later added to group.\
+Tue Apr 02 23:33:42 PDT 2024\
+New member created\
+Tue Apr 02 23:33:47 PDT 2024\
+Changing member name from  to mem to remove\
+Tue Apr 02 23:33:47 PDT 2024\
+New member mem to remove added to group.\
+Tue Apr 02 23:33:47 PDT 2024\
+New member created\
+Tue Apr 02 23:33:48 PDT 2024\
+Member mem to remove removed from group.\
+Tue Apr 02 23:33:49 PDT 2024\
+Changing user time slot for 0:0 to false\
+Tue Apr 02 23:33:49 PDT 2024\
+Changing user time slot for 0:15 to false\
+Tue Apr 02 23:33:50 PDT 2024\
+Changing user time slot for 0:30 to false\
+Tue Apr 02 23:33:51 PDT 2024\
+Changing user time slot for 0:45 to false\
+Tue Apr 02 23:33:53 PDT 2024\
+Changing member name from mem 2 to edit later to mem 2 to edit later\
+Tue Apr 02 23:33:53 PDT 2024\
+Member mem 2 to edit later removed from group.\
+Tue Apr 02 23:33:53 PDT 2024\
+New member mem 2 to edit later added to group.\
+Tue Apr 02 23:33:53 PDT 2024\
+New member created\
+Tue Apr 02 23:33:54 PDT 2024\
+Finding common schedules. New avail times [10000, 10015, 10030, 10045] for group New group to add for readme\
+Tue Apr 02 23:33:54 PDT 2024\
+Matching group schedule to activity length for group New group to add for readme\
+Tue Apr 02 23:33:55 PDT 2024\
+New group added to list
+Tue Apr 02 23:33:55 PDT 2024\
+Writing to file\
+Tue Apr 02 23:33:55 PDT 2024\
+Genrating user JSON.\
+Tue Apr 02 23:33:55 PDT 2024\
+New app user initialized.
+
+Process finished with exit code 0

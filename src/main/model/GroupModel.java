@@ -46,7 +46,7 @@ public class GroupModel implements Writable {
     }
 
     public void setGroupDesc(String gd) {
-        EventLog.getInstance().logEvent(new Event("Changing group name from " + groupDesc + " to " + gd
+        EventLog.getInstance().logEvent(new Event("Changing group description from " + groupDesc + " to " + gd
                 + " for group " + groupName));
         this.groupDesc = gd;
     }
@@ -82,7 +82,7 @@ public class GroupModel implements Writable {
     }
 
     public void setActTime1(int i) {
-        EventLog.getInstance().logEvent(new Event("Changing group name from " + actTime1 + " to " + i
+        EventLog.getInstance().logEvent(new Event("Changing activity time from " + actTime1 + " to " + i
                 + " for group " + groupName));
         actTime1 = i;
     }
@@ -94,7 +94,7 @@ public class GroupModel implements Writable {
     //EFFECTS: Add member in parameter to memberlist
     public void addGroupMember(MemberModel minput) {
         this.memberList.add(minput);
-        EventLog.getInstance().logEvent(new Event("New member added to group."));
+        EventLog.getInstance().logEvent(new Event("New member " + minput.getName() + " added to group."));
     }
 
     //REQUIRES: No same member.getName() in each group

@@ -73,7 +73,7 @@ public class DayScheduleModel implements Writable {
     //MODIFIES: this
     //EFFECTS: Set time from 9:00pm to midnight as busy
     public void setNightBusy() {
-        EventLog.getInstance().logEvent(new Event("Setting night schedule to busy"));
+        //EventLog.getInstance().logEvent(new Event("Setting night schedule to busy"));
         for (int i =  84; i <= 95; i++) {
             this.scheduleArr[i] = true;
         }
@@ -83,7 +83,7 @@ public class DayScheduleModel implements Writable {
     //MODIFIES: this
     //EFFECTS: Set time from 9:00pm to midnight as busy
     public void setMorningBusy() {
-        EventLog.getInstance().logEvent(new Event("Setting morning scheudle to busy"));
+        //EventLog.getInstance().logEvent(new Event("Setting morning scheudle to busy"));
         for (int i =  0; i <= 35; i++) {
             this.scheduleArr[i] = true;
         }
@@ -93,7 +93,7 @@ public class DayScheduleModel implements Writable {
     //MODIFIES: this
     //EFFECTS: sets full day as busy
     public void setFullDayBusy() {
-        EventLog.getInstance().logEvent(new Event("Setting full day schedule to busy"));
+        //EventLog.getInstance().logEvent(new Event("Setting full day schedule to busy"));
         for (int i = 0; i < 96; i++) {
             this.scheduleArr[i] = true;
         }
@@ -103,7 +103,7 @@ public class DayScheduleModel implements Writable {
     //MODIFIES: this
     //EFFECTS: sets full day as free
     public void setFullDayFree() {
-        EventLog.getInstance().logEvent(new Event("Setting full day schedule to free"));
+        //EventLog.getInstance().logEvent(new Event("Setting full day schedule to free"));
         for (int i = 0; i < 96; i++) {
             this.scheduleArr[i] = false;
         }

@@ -193,7 +193,6 @@ public class MainWindow {
             public void actionPerformed(ActionEvent e) {
                 try {
                     currUser = jsonReader.read();
-                    System.out.println("Loaded teams from " + JSON_STORE);
                     loadStatusWorked();
                 } catch (IOException err) {
                     createFileHelper();
@@ -210,7 +209,6 @@ public class MainWindow {
         try {
             currFile = new File("data/groupsData.json");
             if (currFile.createNewFile()) {
-                System.out.println("File created: " + currFile.getName());
                 jsonWriter.open();
                 jsonWriter.write(new AppUser());
                 jsonWriter.close();
