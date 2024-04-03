@@ -3,6 +3,7 @@ package ui;
 import javax.swing.*;
 import java.awt.*;
 
+//Save success display page
 public class SaveSuccessPage {
     private JFrame currFrame = new JFrame();
 

@@ -1,6 +1,8 @@
 package ui;
 
 import model.AppUser;
+import model.Event;
+import model.EventLog;
 import model.GroupModel;
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -14,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+//Main window page
 public class MainWindow {
     private static final String JSON_STORE = "./data/groupsData.json";
     private File currFile;
@@ -166,7 +169,6 @@ public class MainWindow {
     //MODIFIES: this
     //EFFECTS: generates the loaded string for the status loader.
     private void loadStatusWorked() {
-        System.out.println("Load Status True");
         loadString.setText("Group(s) have been Loaded.");
         loadString.setBounds(330, -250, 700,700);
         panelM.add(loadString);
@@ -189,13 +191,9 @@ public class MainWindow {
         currButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Buton Pressed " + name);
                 try {
                     currUser = jsonReader.read();
                     System.out.println("Loaded teams from " + JSON_STORE);
-                    for (GroupModel g : currUser.getGroupsList()) {
-                        System.out.println(g.getGroupName());
-                    }
                     loadStatusWorked();
                 } catch (IOException err) {
                     createFileHelper();
@@ -234,7 +232,6 @@ public class MainWindow {
         currButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Buton Pressed " + name);
                 currFrame.dispose();
                 currFrame = new CreateGroupPage(currUser).getFrame();
                 currFrame.setVisible(true);
@@ -251,7 +248,6 @@ public class MainWindow {
         currButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Buton Pressed " + name);
                 currFrame.dispose();
                 currFrame = new SelectGroupsWindow(currUser).getFrame();
                 currFrame.setVisible(true);
@@ -268,7 +264,6 @@ public class MainWindow {
         currButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Buton Pressed " + name);
                 System.exit(0);
             }
         });

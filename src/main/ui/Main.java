@@ -1,5 +1,8 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
+
 //Initalizes UI by creating new instance of ScheduleApp.
 public class Main {
 
@@ -13,5 +16,12 @@ public class Main {
         } catch (Exception e) {
             System.out.println(e);
         }
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                for (Event next : EventLog.getInstance()) {
+                    System.out.println(next.toString());
+                }
+            }
+        });
     }
 }

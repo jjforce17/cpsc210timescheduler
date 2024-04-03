@@ -1,9 +1,6 @@
 package persistence;
 
-import model.AppUser;
-import model.GroupModel;
-import model.DayScheduleModel;
-import model.MemberModel;
+import model.*;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -29,6 +26,7 @@ public class JsonReader {
     // EFFECTS: reads workroom from file and returns it;
     // throws IOException if an error occurs reading data from file
     public AppUser read() throws IOException {
+        EventLog.getInstance().logEvent(new Event("Reading from file."));
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
         return parseAppUser(jsonObject);

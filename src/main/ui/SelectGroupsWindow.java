@@ -15,7 +15,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
+//Select group to view window
 public class SelectGroupsWindow {
     private static final String JSON_STORE = "./data/groupsData.json";
     private File currFile;
@@ -86,7 +86,6 @@ public class SelectGroupsWindow {
         returnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Button Pressed Return Button");
                 currFrame.dispose();
                 JFrame mainMenu = new MainWindow().getMainMenu();
                 mainMenu.setVisible(true);
@@ -175,7 +174,6 @@ public class SelectGroupsWindow {
         retButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Button Pressed Return Button");
                 currFrame.dispose();
                 JFrame mainMenu = new CreateGroupPage(currUser).groupDetailsEdit(g);
                 mainMenu.setVisible(true);;
@@ -192,7 +190,6 @@ public class SelectGroupsWindow {
         retButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Button Pressed View Group Member Details");
                 currFrame.dispose();
                 JFrame memberPage = new ViewMembersPage(g).getFrame();
                 memberPage.setVisible(true);
@@ -209,7 +206,7 @@ public class SelectGroupsWindow {
         retButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                currUser.getGroupsList().remove(g);
+                currUser.removeGroupFromList(g);
                 saveFunction(g);
                 managaNextFrame();
             }
@@ -222,7 +219,6 @@ public class SelectGroupsWindow {
     //EFFECTS handels the save function for the group removal.
     private void saveFunction(GroupModel currGroup) {
         try {
-            System.out.println(currUser.getGroupsList().size() + "Size");
             jsonWriter.open();
             jsonWriter.write(currUser);
             jsonWriter.close();

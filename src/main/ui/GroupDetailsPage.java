@@ -15,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//Group Details page
 public class GroupDetailsPage {
     private static final String JSON_STORE = "./data/groupsData.json";
     private File currFile;
@@ -84,7 +85,6 @@ public class GroupDetailsPage {
         returnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Button Pressed Return Button");
                 currFrame.dispose();
                 JFrame mainMenu = new MainWindow().getMainMenu();
                 mainMenu.setVisible(true);
@@ -131,11 +131,6 @@ public class GroupDetailsPage {
     //EFFECTS: generates the string form of the group activity times and returns it.
     private String generateTimeString(GroupModel g) {
         g.findCommonSched();
-        for (MemberModel m : g.getMemberList()) {
-            System.out.println(m.getSpecificDay(1).toJson());
-        }
-        System.out.println(g.getActTime1());
-        System.out.println(g.matchActivityLength(g.getActTime1()));
         String retString = "ERROR";
         retString = g.stringAvailTimes(g.matchActivityLength(g.getActTime1())).toString();
         return retString;
@@ -151,11 +146,9 @@ public class GroupDetailsPage {
             public void actionPerformed(ActionEvent e) {
                 try {
                     managaUser();
-                    System.out.println(currUser.getGroupsList().size());
                     jsonWriter.open();
                     jsonWriter.write(currUser);
                     jsonWriter.close();
-                    System.out.println("Saved " + currGroup.getGroupName() + " to " + JSON_STORE);
                     managaNextFrame();
                 } catch (FileNotFoundException f) {
                     System.out.println("Unable to write to file: " + JSON_STORE);
@@ -172,9 +165,8 @@ public class GroupDetailsPage {
     //EFFECTS: a helper for the save function, internally manages the current user and its groups.
     private void managaUser() {
         if (currUser.getGroupsList().contains(currGroup)) {
-            currUser.getGroupsList().remove(currGroup);
+            currUser.removeGroupFromList(currGroup);
         }
-        System.out.println(currUser.getGroupsList().size());
         currUser.addToGroupList(currGroup);
     }
 

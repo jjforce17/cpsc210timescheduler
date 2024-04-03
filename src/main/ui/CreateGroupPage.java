@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import java.security.Key;
 import java.text.NumberFormat;
 
+//Group creation page
 public class CreateGroupPage  {
     private AppUser currUser;
     private GroupModel currGroup;
@@ -230,7 +231,6 @@ public class CreateGroupPage  {
         returnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Button Pressed Return Button");
                 currFrame.dispose();
                 JFrame mainMenu = new MainWindow().getMainMenu();
                 mainMenu.setVisible(true);;

@@ -15,6 +15,7 @@ public class AppUser implements Writable {
     //EFFECTS: Initializes a new app user with now group lists.
     public AppUser() {
         groupsList = new ArrayList<GroupModel>();
+        EventLog.getInstance().logEvent(new Event("New app user initialized."));
     }
 
     //getters and setters
@@ -32,6 +33,12 @@ public class AppUser implements Writable {
     //EFFECTS: Adds a group model to the groupList
     public void addToGroupList(GroupModel g) {
         groupsList.add(g);
+        EventLog.getInstance().logEvent(new Event("New group added to list."));
+    }
+
+    public void removeGroupFromList(GroupModel g) {
+        EventLog.getInstance().logEvent(new Event("Group " + g.getGroupName() + " removed from user list."));
+        groupsList.remove(g);
     }
 
     //REQUIRES:
@@ -39,6 +46,7 @@ public class AppUser implements Writable {
     //EFFECTS: parses a JSON Object of the current appUser
     @Override
     public JSONObject toJson() {
+        EventLog.getInstance().logEvent(new Event("Genrating user JSON."));
         JSONObject json = new JSONObject();
         json.put("groupList", groupsListToJson());
         return json;

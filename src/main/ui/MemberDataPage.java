@@ -16,6 +16,7 @@ import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//Member data input page
 public class MemberDataPage {
     private AppUser currUser;
     private GroupModel currGroup;
@@ -72,10 +73,6 @@ public class MemberDataPage {
     public JFrame getFrame() {
         //member setup
         memberSetup();
-        System.out.println(currGroup.getGroupName());
-        System.out.println(currGroup.getGroupDesc());
-        System.out.println(currGroup.getStartDate());
-        System.out.println(currGroup.getActTime1());
         return currFrame;
     }
 
@@ -138,7 +135,6 @@ public class MemberDataPage {
                 } else {
                     currMember.setName(memberNameField.getText());
                     if (checkMemberName(currGroup.getMemberList())) {
-                        System.out.println("Dulpicate username");
                         currGroup.removeGroupMember(memberNameField.getText());
                     }
                     currGroup.addGroupMember(currMember);
@@ -252,7 +248,6 @@ public class MemberDataPage {
         schedBut.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Button ID " + id + " pressed " + schedBut.getText());
                 if (schedBut.getText().equals("Busy")) {
                     buttonListList.get(id - (id / 100) * 100).get(id / 100 - 1).setBackground(Color.green);
                     buttonListList.get(id - (id / 100) * 100).get(id / 100 - 1).setText("Free");
@@ -415,7 +410,6 @@ public class MemberDataPage {
     //MODIFIES: this
     //EFFECTS: helper for the panel manager for the user panel.
     private void updateUserPanel() {
-        System.out.println(currGroup.getMemberList().size());
         panelE.removeAll();
         panelEScr.removeAll();
         panelEContent.removeAll();
@@ -423,7 +417,6 @@ public class MemberDataPage {
         panelEContent.setLayout(new BoxLayout(panelEContent, BoxLayout.Y_AXIS));
         panelEContent.setPreferredSize(new Dimension(197,9999));
         panelE.add(panelEScr);
-        System.out.println("Updating user panel");
         for (MemberModel m : currGroup.getMemberList()) {
             JLabel memberName = new JLabel("Member name : " + m.getName());
             JButton editMem = editMember(m);

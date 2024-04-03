@@ -1,6 +1,8 @@
 package persistence;
 
 import model.AppUser;
+import model.Event;
+import model.EventLog;
 import model.GroupModel;
 import org.json.JSONObject;
 
@@ -27,6 +29,7 @@ public class JsonWriter {
     // MODIFIES: this
     // EFFECTS: writes JSON representation of workroom to file
     public void write(AppUser u) {
+        EventLog.getInstance().logEvent(new Event("Writing to file"));
         JSONObject writeObj = u.toJson();
         saveToFile(writeObj.toString(TAB));
     }

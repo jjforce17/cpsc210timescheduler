@@ -29,6 +29,9 @@ public class DayScheduleModel implements Writable {
     }
 
     public void setScheduleArr(Boolean[] nsa) {
+        EventLog.getInstance().logEvent(new Event("Changing user time slot to " + nsa.toString()));
+        //Replace to string to toJson to show whic data, will be super long so opt to use to string to show it is
+        //actually being changed to a new object.
         this.scheduleArr = nsa;
     }
 
@@ -39,6 +42,8 @@ public class DayScheduleModel implements Writable {
     //Sets the time slot to specified status
     //timeHr and timeMin represent the start of the time slot, so 07,15 means time slot 07:15 to 07:30
     public void setTimeSlot(int timeHr, int timeMin, Boolean status) {
+        EventLog.getInstance().logEvent(new Event("Changing user time slot for " + String.valueOf(timeHr) + ":"
+                                        + String.valueOf(timeMin) + " to " + String.valueOf(status)));
         int slotNum = (timeHr * 60 + timeMin) / 15;
         this.scheduleArr[slotNum] = status;
     }
@@ -48,6 +53,8 @@ public class DayScheduleModel implements Writable {
     //EFFECTS: Finds the time slots which the hour specifies,
     //Sets the time slot and the next 3 slots to status.
     public void setHourSlot(int timeHr, int timeMin, Boolean status) {
+        EventLog.getInstance().logEvent(new Event("Changing user hour slot for " + String.valueOf(timeHr) + ":"
+                + String.valueOf(timeMin) + " to " + String.valueOf(status)));
         int slotNum = (timeHr * 60 + timeMin) / 15;
         for (int i = slotNum; i <= slotNum + 3; i++) {
             this.scheduleArr[i] = status;
@@ -66,6 +73,7 @@ public class DayScheduleModel implements Writable {
     //MODIFIES: this
     //EFFECTS: Set time from 9:00pm to midnight as busy
     public void setNightBusy() {
+        EventLog.getInstance().logEvent(new Event("Setting night schedule to busy"));
         for (int i =  84; i <= 95; i++) {
             this.scheduleArr[i] = true;
         }
@@ -75,6 +83,7 @@ public class DayScheduleModel implements Writable {
     //MODIFIES: this
     //EFFECTS: Set time from 9:00pm to midnight as busy
     public void setMorningBusy() {
+        EventLog.getInstance().logEvent(new Event("Setting morning scheudle to busy"));
         for (int i =  0; i <= 35; i++) {
             this.scheduleArr[i] = true;
         }
@@ -84,6 +93,7 @@ public class DayScheduleModel implements Writable {
     //MODIFIES: this
     //EFFECTS: sets full day as busy
     public void setFullDayBusy() {
+        EventLog.getInstance().logEvent(new Event("Setting full day schedule to busy"));
         for (int i = 0; i < 96; i++) {
             this.scheduleArr[i] = true;
         }
@@ -93,6 +103,7 @@ public class DayScheduleModel implements Writable {
     //MODIFIES: this
     //EFFECTS: sets full day as free
     public void setFullDayFree() {
+        EventLog.getInstance().logEvent(new Event("Setting full day schedule to free"));
         for (int i = 0; i < 96; i++) {
             this.scheduleArr[i] = false;
         }

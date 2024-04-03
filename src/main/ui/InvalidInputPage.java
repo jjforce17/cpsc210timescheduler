@@ -3,6 +3,7 @@ package ui;
 import javax.swing.*;
 import java.awt.*;
 
+//Inavlid input error page
 public class InvalidInputPage {
     private JFrame currFrame = new JFrame();
 

@@ -28,6 +28,7 @@ public class GroupModel implements Writable {
         this.groupName = gn;
         this.groupDesc = gd;
         this.startDate = sd;
+        EventLog.getInstance().logEvent(new Event("New group created " + groupName));
     }
 
     //Getters and setters
@@ -36,6 +37,7 @@ public class GroupModel implements Writable {
     }
 
     public void setGroupName(String gn) {
+        EventLog.getInstance().logEvent(new Event("Changing group name from " + groupName + " to " + gn));
         this.groupName = gn;
     }
 
@@ -44,6 +46,8 @@ public class GroupModel implements Writable {
     }
 
     public void setGroupDesc(String gd) {
+        EventLog.getInstance().logEvent(new Event("Changing group name from " + groupDesc + " to " + gd
+                + " for group " + groupName));
         this.groupDesc = gd;
     }
 
@@ -52,6 +56,8 @@ public class GroupModel implements Writable {
     }
 
     public void setStartDate(String sd) {
+        EventLog.getInstance().logEvent(new Event("Changing start date from " + startDate + " to " + sd
+                + " for group " + groupName));
         this.startDate = sd;
     }
 
@@ -76,6 +82,8 @@ public class GroupModel implements Writable {
     }
 
     public void setActTime1(int i) {
+        EventLog.getInstance().logEvent(new Event("Changing group name from " + actTime1 + " to " + i
+                + " for group " + groupName));
         actTime1 = i;
     }
 
@@ -86,6 +94,7 @@ public class GroupModel implements Writable {
     //EFFECTS: Add member in parameter to memberlist
     public void addGroupMember(MemberModel minput) {
         this.memberList.add(minput);
+        EventLog.getInstance().logEvent(new Event("New member added to group."));
     }
 
     //REQUIRES: No same member.getName() in each group
@@ -97,6 +106,8 @@ public class GroupModel implements Writable {
         for (MemberModel curMember : this.memberList) {
             if (curMember.getName().equals(memberName)) {
                 this.memberList.remove(curMember);
+                EventLog.getInstance().logEvent(new Event("Member " + curMember.getName() + " removed"
+                        + " from group."));
                 return 1;
             }
         }
@@ -114,6 +125,8 @@ public class GroupModel implements Writable {
         for (int i = 1; i < 8; i++) {
             findCommonInDay(i);
         }
+        EventLog.getInstance().logEvent(new Event("Finding common schedules. New avail times "
+                + availableTimes + " for group " + groupName));
         return this.availableTimes;
     }
 
@@ -189,6 +202,8 @@ public class GroupModel implements Writable {
     //MODIFIES: this
     //EFFECTS: matches the available times and the required duration of activity.
     public ArrayList<ArrayList<Integer>> matchActivityLength(int duration) {
+        EventLog.getInstance().logEvent(new Event("Matching group schedule to activity length for group "
+                + groupName));
         ArrayList<Integer> freeSlots = this.availableTimes;
         if (freeSlots.isEmpty()) {
             return new ArrayList<ArrayList<Integer>>();

@@ -33,6 +33,7 @@ public class MemberModel implements Writable {
         memberSchedule.add(d5);
         memberSchedule.add(d6);
         memberSchedule.add(d7);
+        EventLog.getInstance().logEvent(new Event("New member created " + name));
     }
 
     //Getters and Setters
@@ -41,6 +42,7 @@ public class MemberModel implements Writable {
     }
 
     public void setName(String n) {
+        EventLog.getInstance().logEvent(new Event("Changing member name from " + name + " to " + n));
         this.name = n;
     }
 
@@ -58,6 +60,8 @@ public class MemberModel implements Writable {
     //EFFECTS: Finds the date selected in the parameter
     //Changes the schedule of specified day to one in parameter
     public void setSpecificDay(int day, DayScheduleModel daySched) {
+        EventLog.getInstance().logEvent(new Event("Changing schedule on day " + day + " for member "
+                + this.name));
         this.memberSchedule.set(day - 1, daySched);
     }
 
@@ -65,6 +69,8 @@ public class MemberModel implements Writable {
     //MODIFIES:
     //EFFECTS: returns the DaySchedule of day number specified in parameter.
     public DayScheduleModel getSpecificDay(int day) {
+        //EventLog.getInstance().logEvent(new Event("Getting schedule on day " + day + " for member "
+        //        + this.name));
         return this.memberSchedule.get(day - 1);
     }
 
